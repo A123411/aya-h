@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-color: #0f0c1b; 
-            --gold-color: #d4af37;
+            /* الدرجة السحرية: لون خلفية الصور بالظبط عشان تسيح في الموقع */
+            --bg-color: #af9d8d; 
+            --gold-color: #563321; /* لون بني داكن شيك مستوحى من الخطوط للعداد والزخارف */
             --text-color: #ffffff;
         }
 
@@ -31,15 +32,16 @@
             width: 100%;
             max-width: 480px; 
             margin: 0 auto;
-            padding: 15px;
+            padding: 0px; /* شيلنا الهوامش عشان الصور تلزق في الشاشة صح */
             box-sizing: border-box;
         }
 
+        /* خطوط الزخرفة المدمجة */
         .art-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 30px auto;
+            margin: 20px auto;
             width: 80%;
         }
         .art-line {
@@ -53,32 +55,41 @@
             background-color: var(--gold-color);
             transform: rotate(45deg);
             margin: 0 10px;
-            box-shadow: 0 0 8px var(--gold-color);
         }
 
+        /* الكروت بدون أي حدود أو ظلال عشان تختفي تماماً في الخلفية */
         .media-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
+            background: transparent;
+            border: none;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            margin-bottom: 25px;
+            margin-bottom: 10px;
+            width: 100%;
         }
 
-        .media-card img, .media-card video {
+        .media-card img {
             width: 100%;
             height: auto;
             display: block;
         }
 
+        /* تنسيق الفيديو السحري لمنع ظهور الأزرار نهائياً */
+        .media-card video {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none; /* بيمنع الموبايل إنه يظهر أزرار التشغيل والـ Pause لو حد لمسه */
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* تصميم العداد متناسق مع اللون البيج والبني الداكن */
         .countdown-section {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(15, 12, 27, 0.9));
+            background: rgba(255, 255, 255, 0.2);
             border: 1px solid var(--gold-color);
             border-radius: 15px;
-            padding: 20px 10px;
+            padding: 20px 15px;
             text-align: center;
-            margin: 30px 0;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+            margin: 25px 15px;
         }
 
         .countdown-title {
@@ -97,10 +108,9 @@
         }
 
         .time-box {
-            background: rgba(0, 0, 0, 0.6);
+            background: var(--gold-color);
             padding: 10px 5px;
             border-radius: 8px;
-            border-bottom: 2px solid var(--gold-color);
             box-sizing: border-box;
         }
 
@@ -114,31 +124,17 @@
 
         .time-label {
             font-size: 0.75rem;
-            color: #b3b3b3;
+            color: #e0e0e0;
             margin-top: 4px;
             display: block;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        .sparkle-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-                radial-gradient(circle at 75% 60%, rgba(212, 175, 55, 0.04) 2px, transparent 2px);
-            background-size: 80px 80px;
-            z-index: -1;
         }
     </style>
 </head>
 <body>
 
-    <div class="sparkle-bg"></div>
-
     <div class="main-wrapper">
 
-        <div class="media-card animate__animated animate__fadeInDown">
+        <div class="media-card animate__animated animate__fadeIn">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1).jpeg" alt="دعوة الحنة">
         </div>
 
@@ -176,10 +172,9 @@
             <div class="art-line"></div>
         </div>
 
-        <div class="media-card animate__animated animate__fadeInUp">
-            <video id="weddingVideo" autoplay loop muted playsinline controls>
+        <div class="media-card animate__animated animate__fadeIn">
+            <video id="weddingVideo" autoplay loop muted playsinline>
                 <source src="WhatsApp Video 1447-12-23 at 21.08.23.mp4" type="video/mp4">
-                متصفحك لا يدعم تشغيل الفيديو.
             </video>
         </div>
 
@@ -189,7 +184,7 @@
             <div class="art-line"></div>
         </div>
 
-        <div class="media-card animate__animated animate__fadeInUp">
+        <div class="media-card animate__animated animate__fadeIn">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19.jpeg" alt="دعوة الحنة">
         </div>
 
