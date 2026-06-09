@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* درجة بيج موحدة ومدروسة عشان تدمج كل الصور */
+            /* درجة البيج الموحدة لدمج كل الصور الجديدة */
             --bg-color: #dfcfbf; 
             --gold-color: #563321; 
             --text-color: #ffffff;
@@ -39,11 +40,22 @@
             z-index: 2;
         }
 
+        .bg-ornaments {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            border: 1px solid rgba(86, 51, 33, 0.12);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .art-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 15px auto;
+            margin: 20px auto;
             width: 80%;
         }
         .art-line {
@@ -62,7 +74,6 @@
         .media-card {
             background: transparent;
             border: none;
-            overflow: hidden;
             margin: 0;
             padding: 0;
             width: 100%;
@@ -76,19 +87,28 @@
             display: block;
         }
 
-        /* حاوية الأنيميشن لمنع أي أزرار أو تحكم تماماً */
-        .video-container {
-            position: relative;
+        /* حاوية أنيميشن التبديل السحري بين الصورتين (بديل الفيديو) */
+        .photo-animation-container {
             width: 100%;
+            position: relative;
             overflow: hidden;
-            pointer-events: none;
+            background-color: var(--bg-color);
         }
-
-        .video-container video {
+        
+        .anim-slide {
             width: 100%;
             height: auto;
+            display: none;
+        }
+        
+        .anim-slide.active {
             display: block;
-            object-fit: cover;
+            animation: sway 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes sway {
+            0% { transform: scale(1.01) rotate(-0.5deg); }
+            100% { transform: scale(1.01) rotate(0.5deg); }
         }
 
         .countdown-section {
@@ -120,7 +140,6 @@
             background: var(--gold-color);
             padding: 10px 5px;
             border-radius: 8px;
-            box-sizing: border-box;
         }
 
         .time-number {
@@ -138,13 +157,46 @@
             display: block;
         }
 
-        /* أنيميشن تساقط القصاصات والسباركلز في الخلفية */
+        .location-section {
+            text-align: center;
+            margin: 30px 15px;
+            padding: 20px;
+            background: rgba(86, 51, 33, 0.05);
+            border-radius: 15px;
+            border: 1px dashed var(--gold-color);
+        }
+
+        .location-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--gold-color);
+            margin-bottom: 15px;
+        }
+
+        .location-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--gold-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(86, 51, 33, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+            100% { transform: scale(1); }
+        }
+
         #particle-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
@@ -152,25 +204,17 @@
 
         .particle {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: var(--gold-color);
-            border-radius: 50%;
+            width: 6px;
+            height: 6px;
             animation: fall linear infinite;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         @keyframes fall {
-            0% {
-                transform: translateY(-20px) rotate(0deg);
-                opacity: 0;
-            }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.7; }
-            100% {
-                transform: translateY(105vh) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
         }
     </style>
 </head>
@@ -179,9 +223,10 @@
     <div id="particle-container"></div>
 
     <div class="main-wrapper">
+        <div class="bg-ornaments"></div>
 
         <div class="media-card animate__animated animate__fadeIn">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1).jpeg" alt="دعوة الحنة">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="دعوة الحنة الجزء الأول">
         </div>
 
         <div class="art-divider">
@@ -218,10 +263,22 @@
             <div class="art-line"></div>
         </div>
 
-        <div class="media-card video-container animate__animated animate__fadeIn">
-            <video id="weddingVideo" autoplay loop muted playsinline webkit-playsinline aria-hidden="true">
-                <source src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" type="video/mp4">
-            </video>
+        <div class="photo-animation-container animate__animated animate__fadeIn">
+            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (1) (1).jpeg" class="anim-slide active" alt="حركة الدعوة 1">
+            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (2).jpeg" class="anim-slide" alt="حركة الدعوة 2">
+        </div>
+
+        <div class="art-divider">
+            <div class="art-line"></div>
+            <div class="art-diamond"></div>
+            <div class="art-line"></div>
+        </div>
+
+        <div class="location-section animate__animated animate__fadeInUp">
+            <div class="location-title"><i class="fa-solid fa-map-location-dot"></i> مكان الحفل المنشود</div>
+            <a href="#" target="_blank" class="location-btn">
+                <i class="fa-solid fa-location-arrow"></i> اضغط هنا لفتح الموقع على الخريطة
+            </a>
         </div>
 
         <div class="art-divider">
@@ -231,18 +288,17 @@
         </div>
 
         <div class="media-card animate__animated animate__fadeIn">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19.jpeg" alt="دعوة الحنة">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" alt="دعوة الحنة الجزء الأخير">
         </div>
 
     </div>
 
     <script>
+        // العداد التنازلي إلى 25 أغسطس 2026
         const targetDate = new Date("August 25, 2026 20:00:00").getTime();
-
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
             const difference = targetDate - now;
-
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
@@ -260,31 +316,28 @@
             }
         }, 1000);
 
-        // إنشاء جزيئات الفرحة المتساقطة ديناميكياً
+        // تبديل الصورتين تلقائياً كل ثانية لمحاكاة الفيديو بسلاسة
+        const slides = document.querySelectorAll('.anim-slide');
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 1000);
+
+        // جزيئات الاحتفال المتساقطة
         function createParticles() {
             const container = document.getElementById('particle-container');
-            const particleCount = 40;
-            const colors = ['#563321', '#ffffff', '#d4af37', '#b8860b'];
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                particle.style.left = Math.random() * 100 + 'vw';
-                particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                
-                // تنويع الأشكال بين دوائر ومربعات صغيرة
-                if (Math.random() > 0.5) {
-                    particle.style.borderRadius = '0%';
-                }
-                
-                const size = (Math.random() * 6 + 4) + 'px';
-                particle.style.width = size;
-                particle.style.height = size;
-
-                container.appendChild(particle);
+            const colors = ['#563321', '#ffffff', '#d4af37'];
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.classList.add('particle');
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                p.style.animationDelay = (Math.random() * 4) + 's';
+                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                if (Math.random() > 0.5) p.style.borderRadius = '50%';
+                container.appendChild(p);
             }
         }
         createParticles();
