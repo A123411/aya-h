@@ -12,9 +12,9 @@
 
     <style>
         :root {
-            /* الدرجة السحرية: لون خلفية الصور بالظبط عشان تسيح في الموقع */
-            --bg-color: #af9d8d; 
-            --gold-color: #563321; /* لون بني داكن شيك مستوحى من الخطوط للعداد والزخارف */
+            /* تعديل دقيق لدرجة البيج المأخوذة من الصور مباشرة */
+            --bg-color: #e5d5c5; 
+            --gold-color: #563321; 
             --text-color: #ffffff;
         }
 
@@ -32,16 +32,16 @@
             width: 100%;
             max-width: 480px; 
             margin: 0 auto;
-            padding: 0px; /* شيلنا الهوامش عشان الصور تلزق في الشاشة صح */
+            padding: 0px; 
             box-sizing: border-box;
+            background-color: var(--bg-color);
         }
 
-        /* خطوط الزخرفة المدمجة */
         .art-divider {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px auto;
+            margin: 15px auto;
             width: 80%;
         }
         .art-line {
@@ -57,39 +57,50 @@
             margin: 0 10px;
         }
 
-        /* الكروت بدون أي حدود أو ظلال عشان تختفي تماماً في الخلفية */
         .media-card {
             background: transparent;
             border: none;
             overflow: hidden;
-            margin-bottom: 10px;
+            margin: 0;
+            padding: 0;
             width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .media-card img {
             width: 100%;
             height: auto;
             display: block;
+            margin: 0;
+            padding: 0;
         }
 
-        /* تنسيق الفيديو السحري لمنع ظهور الأزرار نهائياً */
-        .media-card video {
+        /* الخدعة القاضية لزرار تشغيل الفيديو على الآيفون */
+        .video-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            pointer-events: none; /* يمنع اللمس تماماً */
+        }
+
+        .video-container video {
             width: 100%;
             height: auto;
             display: block;
-            pointer-events: none; /* بيمنع الموبايل إنه يظهر أزرار التشغيل والـ Pause لو حد لمسه */
-            -webkit-user-select: none;
-            user-select: none;
+            object-fit: cover;
+            /* إخفاء المشغلات الافتراضية بأمر مباشر للمتصفح */
+            &::-webkit-media-controls { display: none !important; }
+            &::-webkit-media-controls-start-playback-button { display: none !important; }
         }
 
-        /* تصميم العداد متناسق مع اللون البيج والبني الداكن */
         .countdown-section {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
             border: 1px solid var(--gold-color);
             border-radius: 15px;
             padding: 20px 15px;
             text-align: center;
-            margin: 25px 15px;
+            margin: 20px 15px;
         }
 
         .countdown-title {
@@ -172,8 +183,8 @@
             <div class="art-line"></div>
         </div>
 
-        <div class="media-card animate__animated animate__fadeIn">
-            <video id="weddingVideo" autoplay loop muted playsinline>
+        <div class="media-card video-container animate__animated animate__fadeIn">
+            <video id="weddingVideo" autoplay loop muted playsinline webkit-playsinline aria-hidden="true">
                 <source src="WhatsApp Video 1447-12-23 at 21.08.23.mp4" type="video/mp4">
             </video>
         </div>
@@ -213,6 +224,16 @@
                 document.getElementById("countdown").style.display = "none";
             }
         }, 1000);
+
+        // تأكيد تشغيل الفيديو برمجياً احتياطاً لو علق
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const v = document.getElementById('weddingVideo');
+            if(v) {
+                v.play().catch(error => {
+                    console.log("Autoplay checked");
+                });
+            }
+        });
     </script>
 </body>
 </html>
