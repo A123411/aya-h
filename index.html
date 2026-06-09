@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>دعوة حفل الحناء المنتظر</title>
+    <title>دعوة حفل الحناء</title>
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* درجة البيج الموحدة لدمج كل الصور الجديدة */
+            /* لون الخلفية الموحد المطابق للصور تماماً */
             --bg-color: #dfcfbf; 
-            --gold-color: #563321; 
-            --text-color: #ffffff;
+            --text-color: #563321; 
+            --card-bg: rgba(255, 255, 255, 0.25);
         }
 
         body, html {
@@ -31,44 +30,19 @@
 
         .main-wrapper {
             width: 100%;
-            max-width: 480px; 
+            max-width: 450px; 
             margin: 0 auto;
-            padding: 0px; 
+            padding: 0; 
             box-sizing: border-box;
-            background-color: var(--bg-color);
-            position: relative;
-            z-index: 2;
         }
 
-        .bg-ornaments {
-            position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 10px;
-            right: 10px;
-            border: 1px solid rgba(86, 51, 33, 0.12);
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .art-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-            width: 80%;
-        }
-        .art-line {
-            flex: 1;
+        /* فواصل ناعمة وبسيطة جداً غير مزعجة */
+        .simple-divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold-color), transparent);
-        }
-        .art-diamond {
-            width: 8px;
-            height: 8px;
-            background-color: var(--gold-color);
-            transform: rotate(45deg);
-            margin: 0 10px;
+            background: linear-gradient(90deg, transparent, var(--text-color), transparent);
+            margin: 25px auto;
+            width: 60%;
+            opacity: 0.3;
         }
 
         .media-card {
@@ -77,8 +51,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            display: flex;
-            flex-direction: column;
+            display: block;
         }
 
         .media-card img {
@@ -87,156 +60,114 @@
             display: block;
         }
 
-        /* حاوية أنيميشن التبديل السحري بين الصورتين (بديل الفيديو) */
+        /* كدر ثابت تماماً للأنيميشن بدون أي حركة يمين أو شمال */
         .photo-animation-container {
             width: 100%;
             position: relative;
-            overflow: hidden;
             background-color: var(--bg-color);
+            display: grid;
+            grid-template-columns: 1fr;
         }
         
         .anim-slide {
+            grid-column: 1;
+            grid-row: 1;
             width: 100%;
             height: auto;
-            display: none;
+            display: block;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out; /* تبديل ناعم في نفس المكان */
         }
         
         .anim-slide.active {
-            display: block;
-            animation: sway 2s ease-in-out infinite alternate;
+            opacity: 1;
+            z-index: 2;
         }
 
-        @keyframes sway {
-            0% { transform: scale(1.01) rotate(-0.5deg); }
-            100% { transform: scale(1.01) rotate(0.5deg); }
-        }
-
+        /* تصميم عداد تنازلي هادئ وراقٍ */
         .countdown-section {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid var(--gold-color);
-            border-radius: 15px;
-            padding: 20px 15px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
-            margin: 20px 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 20px 25px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
         }
 
         .countdown-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--gold-color);
-            margin-bottom: 20px;
-            line-height: 1.6;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 15px;
         }
 
         .countdown-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 10px;
             direction: ltr; 
         }
 
         .time-box {
-            background: var(--gold-color);
-            padding: 10px 5px;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 8px 5px;
             border-radius: 8px;
+            border: 1px solid rgba(86, 51, 33, 0.1);
         }
 
         .time-number {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-color);
             display: block;
-            line-height: 1.2;
         }
 
         .time-label {
             font-size: 0.75rem;
-            color: #e0e0e0;
-            margin-top: 4px;
+            color: var(--text-color);
+            opacity: 0.8;
+            margin-top: 2px;
             display: block;
         }
 
+        /* تصميم زر موقع القاعة الراقي البسيط */
         .location-section {
             text-align: center;
-            margin: 30px 15px;
-            padding: 20px;
-            background: rgba(86, 51, 33, 0.05);
-            border-radius: 15px;
-            border: 1px dashed var(--gold-color);
-        }
-
-        .location-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--gold-color);
-            margin-bottom: 15px;
+            margin: 25px;
         }
 
         .location-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: var(--gold-color);
+            background-color: var(--text-color);
             color: #ffffff;
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(86, 51, 33, 0.3);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 12px rgba(86, 51, 33, 0.15);
+            transition: background-color 0.3s ease;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.04); }
-            100% { transform: scale(1); }
-        }
-
-        #particle-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            animation: fall linear infinite;
-            opacity: 0.5;
-        }
-
-        @keyframes fall {
-            0% { transform: translateY(-20px) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.6; }
-            90% { opacity: 0.6; }
-            100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+        .location-btn:hover {
+            background-color: #3d2316;
         }
     </style>
 </head>
 <body>
 
-    <div id="particle-container"></div>
-
     <div class="main-wrapper">
-        <div class="bg-ornaments"></div>
 
-        <div class="media-card animate__animated animate__fadeIn">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="دعوة الحنة الجزء الأول">
+        <div class="media-card">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="دعوة الحنة 1">
         </div>
 
-        <div class="art-divider">
-            <div class="art-line"></div>
-            <div class="art-diamond"></div>
-            <div class="art-line"></div>
-        </div>
+        <div class="simple-divider"></div>
 
-        <div class="countdown-section animate__animated animate__zoomIn">
-            <div class="countdown-title">مستنيين الفرحة.. باقي على الليلة المنتظرة:</div>
+        <div class="countdown-section">
+            <div class="countdown-title">الوقت المتبقي على ليلتنا المنتظرة</div>
             <div class="countdown-grid" id="countdown">
                 <div class="time-box">
                     <span class="time-number" id="seconds">00</span>
@@ -257,38 +188,25 @@
             </div>
         </div>
 
-        <div class="art-divider">
-            <div class="art-line"></div>
-            <div class="art-diamond"></div>
-            <div class="art-line"></div>
+        <div class="simple-divider"></div>
+
+        <div class="photo-animation-container">
+            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (1) (1).jpeg" class="anim-slide active" alt="حركة 1">
+            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (2).jpeg" class="anim-slide" alt="حركة 2">
         </div>
 
-        <div class="photo-animation-container animate__animated animate__fadeIn">
-            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (1) (1).jpeg" class="anim-slide active" alt="حركة الدعوة 1">
-            <img src="WhatsApp Image 1447-12-23 at 22.14.14 (2).jpeg" class="anim-slide" alt="حركة الدعوة 2">
-        </div>
+        <div class="simple-divider"></div>
 
-        <div class="art-divider">
-            <div class="art-line"></div>
-            <div class="art-diamond"></div>
-            <div class="art-line"></div>
-        </div>
-
-        <div class="location-section animate__animated animate__fadeInUp">
-            <div class="location-title"><i class="fa-solid fa-map-location-dot"></i> مكان الحفل المنشود</div>
+        <div class="location-section">
             <a href="#" target="_blank" class="location-btn">
-                <i class="fa-solid fa-location-arrow"></i> اضغط هنا لفتح الموقع على الخريطة
+                <i class="fa-solid fa-location-dot"></i> موقع حفل الحناء على الخريطة
             </a>
         </div>
 
-        <div class="art-divider">
-            <div class="art-line"></div>
-            <div class="art-diamond"></div>
-            <div class="art-line"></div>
-        </div>
+        <div class="simple-divider"></div>
 
-        <div class="media-card animate__animated animate__fadeIn">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" alt="دعوة الحنة الجزء الأخير">
+        <div class="media-card">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" alt="دعوة الحنة 3">
         </div>
 
     </div>
@@ -311,36 +229,19 @@
 
             if (difference < 0) {
                 clearInterval(timerInterval);
-                document.querySelector(".countdown-title").innerText = "اليوم هو يوم الفرحة المنشودة! 🎉";
+                document.querySelector(".countdown-title").innerText = "بدأ الحفل الآن! 🎉";
                 document.getElementById("countdown").style.display = "none";
             }
         }, 1000);
 
-        // تبديل الصورتين تلقائياً كل ثانية لمحاكاة الفيديو بسلاسة
+        // التبديل في كدر ثابت تماماً بدون أي اهتزاز
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 1000);
-
-        // جزيئات الاحتفال المتساقطة
-        function createParticles() {
-            const container = document.getElementById('particle-container');
-            const colors = ['#563321', '#ffffff', '#d4af37'];
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.classList.add('particle');
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 3 + 4) + 's';
-                p.style.animationDelay = (Math.random() * 4) + 's';
-                p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                if (Math.random() > 0.5) p.style.borderRadius = '50%';
-                container.appendChild(p);
-            }
-        }
-        createParticles();
+        }, 1200); // سرعة تبديل هادية ومريحة للعين
     </script>
 </body>
 </html>
