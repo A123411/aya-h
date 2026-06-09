@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>الدعوة الملكية لحفل الحناء</title>
+    <title>حنة آية - الدعوة الملكية</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0;700;1;400&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            /* درجة اللون الكريمي الفاخرة المسحوبة من الصورة مباشرة لدمج كلي */
             --bg-color: #f0dfcc; 
             --main-brown: #563321; 
             --gold-accent: #b8860b;
-            /* شفافية ناعمة جداً تمتزج مع اللون الجديد */
-            --glass-bg: rgba(255, 255, 255, 0.3);
-            --glass-border: rgba(86, 51, 33, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(86, 51, 33, 0.08);
         }
 
         body, html {
@@ -38,27 +36,26 @@
             padding: 0; 
             box-sizing: border-box;
             background-color: var(--bg-color);
+            position: relative;
         }
 
-        .welcome-text-top {
-            font-family: 'Amiri', serif;
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--main-brown);
-            margin: 30px 0 10px 0;
-            line-height: 1.4;
+        /* تعديل 1: الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
+        .first-hero {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 0;
+            display: block;
         }
 
-        .welcome-subtext {
-            text-align: center;
-            font-size: 0.95rem;
-            font-weight: 600;
-            opacity: 0.85;
-            margin-bottom: 25px;
+        .first-hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: none;
         }
 
-        /* كروت ميديا مدمجة تماماً بدون أي ظلال أو برواز يظهر فروق */
+        /* كروت الميديا الانسيابية مدمجة الحواف */
         .media-card {
             background: transparent;
             border: none;
@@ -66,6 +63,7 @@
             padding: 0;
             width: 100%;
             display: block;
+            line-height: 0;
         }
 
         .media-card img {
@@ -74,7 +72,7 @@
             display: block;
         }
 
-        /* حاوية الأنيميشن القاطعة الثابتة والمدمجة في الخلفية */
+        /* حاوية التبديل الفوري في كدر ثابت مدمج */
         .photo-animation-container {
             width: 100%;
             position: relative;
@@ -83,6 +81,7 @@
             grid-template-columns: 1fr;
             margin: 0;
             padding: 0;
+            line-height: 0;
         }
         
         .anim-slide {
@@ -98,24 +97,48 @@
             z-index: 2;
         }
 
-        /* العداد التنازلي المودرن الدائري بدون حواف حادة */
+        /* تأثير الأنيميشن والغطاء الحركي لدمج الفواصل */
+        .wave-separator {
+            width: 100%;
+            line-height: 0;
+            position: relative;
+            background-color: var(--bg-color);
+            margin: -1px 0; /* لمنع ظهور فراغات البكسل */
+        }
+
+        .wave-separator svg {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 40px;
+        }
+
+        .wave-path {
+            fill: #ebdccb; /* درجة لونية متناغمة ممزوجة تخفي عيوب أطراف الصور */
+            animation: waveMove 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveMove {
+            0% { d: path("M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"); }
+            100% { d: path("M0,25 C120,5 280,35 460,20 L460,40 L0,40 Z"); }
+        }
+
+        /* العداد التنازلي الدائري المودرن الفخم */
         .countdown-section {
-            background: var(--glass-bg);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 20px;
-            padding: 25px 15px;
+            background: linear-gradient(180deg, #ebdccb, var(--bg-color));
+            padding: 30px 15px;
             text-align: center;
-            margin: 25px 15px;
-            border: 1px solid var(--glass-border);
+            margin: 0;
+            position: relative;
         }
 
         .countdown-title {
             font-family: 'Amiri', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--main-brown);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
         }
 
         .countdown-grid {
@@ -130,15 +153,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 75px;
-            height: 75px;
-            background: rgba(255, 255, 255, 0.45);
+            width: 78px;
+            height: 78px;
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50%; 
-            border: 1px solid rgba(86, 51, 33, 0.08);
+            border: 1px solid rgba(86, 51, 33, 0.05);
+            box-shadow: 0 4px 12px rgba(86, 51, 33, 0.03);
         }
 
         .time-number {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 900;
             color: var(--main-brown);
             line-height: 1;
@@ -146,33 +170,33 @@
 
         .time-label {
             font-size: 0.7rem;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--main-brown);
             opacity: 0.8;
             margin-top: 4px;
         }
 
-        /* قسم اللوكيشن الانسيابي */
+        /* قسم موقع الخريطة الانسيابي */
         .location-section {
             text-align: center;
-            margin: 25px 15px;
-            padding: 25px 20px;
-            background: var(--glass-bg);
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
+            margin: 0;
+            padding: 35px 20px;
+            background: linear-gradient(180deg, var(--bg-color), #ebdccb);
         }
 
         .location-title {
             font-family: 'Amiri', serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .location-desc {
-            font-size: 0.85rem;
-            opacity: 0.8;
-            margin-bottom: 20px;
+            font-size: 0.88rem;
+            opacity: 0.85;
+            margin-bottom: 22px;
+            padding: 0 15px;
+            line-height: 1.6;
         }
 
         .location-btn {
@@ -182,10 +206,11 @@
             background-color: var(--main-brown);
             color: #ffffff;
             text-decoration: none;
-            padding: 14px 35px;
+            padding: 14px 40px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.95rem;
+            box-shadow: 0 6px 20px rgba(86, 51, 33, 0.15);
             transition: all 0.3s ease;
         }
 
@@ -197,12 +222,12 @@
         .footer-poem {
             font-family: 'Amiri', serif;
             text-align: center;
-            font-size: 1.3rem;
-            font-style: italic;
-            line-height: 1.6;
-            margin: 35px 0;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            padding: 40px 0;
+            background-color: #ebdccb;
+            margin: 0;
             color: var(--main-brown);
-            opacity: 0.9;
         }
     </style>
 </head>
@@ -210,15 +235,18 @@
 
     <div class="main-wrapper">
 
-        <div class="welcome-text-top">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-        <div class="welcome-subtext">أهلاً بكم في ليلة يملأها الفرح والسرور ✨</div>
+        <div class="first-hero">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="حنة آية الجزء الأول">
+        </div>
 
-        <div class="media-card">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="دعوة الحنة 1">
+        <div class="wave-separator">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
         </div>
 
         <div class="countdown-section">
-            <div class="countdown-title">باقي على ليلة العمر المنتظرة</div>
+            <div class="countdown-title">الوقت المتبقي على الليلة المنتظرة</div>
             <div class="countdown-grid" id="countdown">
                 <div class="time-box">
                     <span class="time-number" id="seconds">00</span>
@@ -239,32 +267,44 @@
             </div>
         </div>
 
+        <div class="wave-separator" style="transform: scaleY(-1);">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
+        </div>
+
         <div class="photo-animation-container">
             <img src="WhatsApp Image 1447-12-23 at 22.14.14 (1) (1).jpeg" class="anim-slide active" alt="حركة 1">
             <img src="WhatsApp Image 1447-12-23 at 22.14.14 (2).jpeg" class="anim-slide" alt="حركة 2">
         </div>
 
+        <div class="wave-separator">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
+        </div>
+
         <div class="location-section">
-            <div class="location-title"><i class="fa-solid fa-map-marked-alt" style="color: var(--gold-accent);"></i> موقع ومكان الحفل</div>
-            <div class="location-desc">يسعدنا حضوركم وتشريفكم لنا، اضغط على الزر أدناه لتوجيهك للموقع مباشرة.</div>
+            <div class="location-title"><i class="fa-solid fa-map-location-dot" style="color: var(--gold-accent);"></i> موقع ومكان الحفل</div>
+            <div class="location-desc">يسعدنا حضوركم وتشريفكم لنا، اضغط على الزر أدناه لتوجيهك إلى موقع القاعة مباشرة على الخرائط.</div>
             <a href="#" target="_blank" class="location-btn">
                 <i class="fa-solid fa-location-arrow"></i> فتح الاتجاهات على الخريطة
             </a>
         </div>
 
         <div class="media-card">
-            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" alt="دعوة الحنة 3">
+            <img src="WhatsApp Image 1447-12-23 at 21.08.19 (2).jpeg" alt="حنة آية الجزء الأخير">
         </div>
 
         <div class="footer-poem">
             حضوركم يكتمل به فرحنا وسرورنا.. <br>
-            وعاقبة المسرات لكم دائمًا 🎉
+            وعاقبة المسرات لكم دائمًا دامت دياركم بالأفراح 🎉
         </div>
 
     </div>
 
     <script>
-        // كود تشغيل العداد التنازلي إلى 25 أغسطس 2026
+        // العداد التنازلي التلقائي الذكي لـ 25 أغسطس 2026
         const targetDate = new Date("August 25, 2026 20:00:00").getTime();
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
@@ -281,12 +321,12 @@
 
             if (difference < 0) {
                 clearInterval(timerInterval);
-                document.querySelector(".countdown-title").innerText = "فرحتنا بدأت الآن! 🎉";
+                document.querySelector(".countdown-title").innerText = "بدأت الفرحة المنتظرة الآن! 🎉";
                 document.getElementById("countdown").style.display = "none";
             }
         }, 1000);
 
-        // التبديل السريع الفوري الحاد في الكدر الثابت المدمج
+        // تبديل فوري "قطع فوري" للصور في كدر ثابت تماماً ومحاذاة تامة
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
@@ -297,3 +337,4 @@
     </script>
 </body>
 </html>
+
