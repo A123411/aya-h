@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة حفل الحناء</title>
+    <style>
+        /* إلغاء أي هوامش في المتصفح */
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* متاح تغييره حسب لون خلفية التصميم */
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
 
+        /* حاوية العرض لمنع الفواصل */
+        .invitation-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* تنسيق الصور والفيديو لتبدو كصفحة واحدة ممتدة */
+        .invitation-media {
+            width: 100%;
+            height: auto;
+            display: block; /* يلغي الفراغات والحدود التلقائية */
+            margin: 0;
+            padding: 0;
+            border: none;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1).jpeg" alt="دعوة الحنة - الجزء الأول" class="invitation-media">
+        
+        <video class="invitation-media" autoplay loop muted playsinline>
+            <source src="WhatsApp Video 1447-12-23 at 21.08.23.mp4" type="video/mp4">
+            متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+        
+        <img src="WhatsApp Image 1447-12-23 at 21.08.19.jpeg" alt="دعوة الحنة - الجزء الثالث" class="invitation-media">
+    </div>
+
+</body>
+</html>
