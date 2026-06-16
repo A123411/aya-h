@@ -7,22 +7,24 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,400&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-color: #f0dfcc; 
-            --main-brown: #563321; 
-            --gold-accent: #b8860b;
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(86, 51, 33, 0.08);
+            /* [تعديل] ألوان دافئة وفخمة تعكس إضاءة الشموع والذهب */
+            --bg-color: #f5ebd9; 
+            --main-brown: #4a2c1b; 
+            --gold-accent: #c59b27;
+            --candle-glow: rgba(245, 235, 217, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.45);
         }
 
         body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
+            /* [بهارات] خلفية متدرجة ناعمة تعطي إيحاء بإضاءة الشموع الخافتة (Bokeh effect) */
+            background: radial-gradient(circle at 50% 20%, #fff6e9 0%, var(--bg-color) 70%);
             color: var(--main-brown);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
@@ -35,11 +37,11 @@
             margin: 0 auto;
             padding: 0; 
             box-sizing: border-box;
-            background-color: var(--bg-color);
             position: relative;
+            box-shadow: 0 0 30px rgba(74, 44, 27, 0.08);
+            background: var(--bg-color);
         }
 
-        /* الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
         .first-hero {
             width: 100%;
             margin: 0;
@@ -55,7 +57,6 @@
             border: none;
         }
 
-        /* كروت الميديا الانسيابية مدمجة الحواف */
         .media-card {
             background: transparent;
             border: none;
@@ -72,29 +73,51 @@
             display: block;
         }
 
-        /* [تعديل] ضبط حاوية التبديل للحركتين وتوسيط الصور تماماً */
+        /* [تعديل] عنوان الرقصة والكلام الحلو فوق الأنيميشن */
+        .dance-header {
+            text-align: center;
+            padding: 25px 15px 10px 15px;
+            background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.3));
+        }
+
+        .dance-header h3 {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            color: var(--main-brown);
+            margin: 0 0 5px 0;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .dance-header p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--gold-accent);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* حاوية التبديل الفوري في كدر ثابت مدمج وموسط */
         .photo-animation-container {
             width: 100%;
             position: relative;
-            background-color: var(--bg-color);
             display: grid;
             grid-template-columns: 1fr;
             margin: 0;
-            padding: 0;
+            padding: 10px 0 25px 0;
             line-height: 0;
-            justify-items: center; /* توسيط الصور أفقياً */
-            align-items: center;    /* توسيط الصور رأسياً */
+            justify-items: center;
+            align-items: center;
         }
         
-        /* [تعديل] الكلاس اللي كان ناقص في الـ HTML */
         .anim-slide {
             grid-column: 1;
             grid-row: 1;
             width: 100%;
             height: auto;
-            display: none; /* إخفاء الصور افتراضياً */
+            display: none;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out; /* تأثير ناعم أثناء التبديل */
+            transition: opacity 0.5s ease-in-out; /* حركة ناعمة جداً في التبديل */
         }
         
         .anim-slide.active {
@@ -108,8 +131,7 @@
             width: 100%;
             line-height: 0;
             position: relative;
-            background-color: var(--bg-color);
-            margin: -1px 0; /* لمنع ظهور فراغات البكسل */
+            margin: -1px 0; 
         }
 
         .wave-separator svg {
@@ -120,7 +142,7 @@
         }
 
         .wave-path {
-            fill: #ebdccb; /* درجة لونية متناغمة ممزوجة تخفي عيوب أطراف الصور */
+            fill: #ebdccb; 
             animation: waveMove 4s ease-in-out infinite alternate;
         }
 
@@ -129,10 +151,10 @@
             100% { d: path("M0,25 C120,5 280,35 460,20 L460,40 L0,40 Z"); }
         }
 
-        /* العداد التنازلي الدائري المودرن الفخم */
+        /* [تعديل] تضبيط قسم العداد التنازلي ليكون أشبه بأجواء الشموع */
         .countdown-section {
-            background: linear-gradient(180deg, #ebdccb, var(--bg-color));
-            padding: 30px 15px;
+            background: linear-gradient(180deg, #ebdccb, rgba(255, 255, 255, 0.2));
+            padding: 35px 15px;
             text-align: center;
             margin: 0;
             position: relative;
@@ -140,11 +162,10 @@
 
         .countdown-title {
             font-family: 'Amiri', serif;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
             color: var(--main-brown);
             margin-bottom: 25px;
-            letter-spacing: 0.5px;
         }
 
         .countdown-grid {
@@ -154,31 +175,34 @@
             direction: ltr; 
         }
 
+        /* [تعديل] تضبيط شكل الساعة الدائرية بإضافة توهج دافئ (Candle Glow) */
         .time-box {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 78px;
-            height: 78px;
-            background: rgba(255, 255, 255, 0.6);
+            width: 82px;
+            height: 82px;
+            background: var(--card-bg);
             border-radius: 50%; 
-            border: 1px solid rgba(86, 51, 33, 0.05);
-            box-shadow: 0 4px 12px rgba(86, 51, 33, 0.03);
+            border: 1.5px solid rgba(197, 155, 39, 0.25); /* إطار ذهبي خفيف */
+            box-shadow: 0 0 15px rgba(197, 155, 39, 0.15), inset 0 0 10px rgba(255,255,255,0.6); /* تأثير التوهج */
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: transform 0.3s ease;
         }
 
         .time-number {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 900;
             color: var(--main-brown);
             line-height: 1;
         }
 
         .time-label {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 700;
-            color: var(--main-brown);
-            opacity: 0.8;
+            color: #6e432c;
             margin-top: 4px;
         }
 
@@ -186,21 +210,21 @@
         .location-section {
             text-align: center;
             margin: 0;
-            padding: 35px 20px;
-            background: linear-gradient(180deg, var(--bg-color), #ebdccb);
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), #ebdccb);
         }
 
         .location-title {
             font-family: 'Amiri', serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 12px;
         }
 
         .location-desc {
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             opacity: 0.85;
-            margin-bottom: 22px;
+            margin-bottom: 25px;
             padding: 0 15px;
             line-height: 1.6;
         }
@@ -212,28 +236,29 @@
             background-color: var(--main-brown);
             color: #ffffff;
             text-decoration: none;
-            padding: 14px 40px;
+            padding: 14px 45px;
             border-radius: 50px;
             font-weight: 600;
             font-size: 0.95rem;
-            box-shadow: 0 6px 20px rgba(86, 51, 33, 0.15);
+            box-shadow: 0 6px 20px rgba(74, 44, 27, 0.2);
             transition: all 0.3s ease;
         }
 
         .location-btn:hover {
-            background-color: #3d2316;
-            transform: scale(1.02);
+            background-color: #331e12;
+            transform: scale(1.03);
         }
 
         .footer-poem {
             font-family: 'Amiri', serif;
             text-align: center;
-            font-size: 1.4rem;
-            line-height: 1.7;
-            padding: 40px 0;
+            font-size: 1.5rem;
+            line-height: 1.8;
+            padding: 45px 15px;
             background-color: #ebdccb;
             margin: 0;
             color: var(--main-brown);
+            border-top: 1px solid rgba(197, 155, 39, 0.1);
         }
     </style>
 </head>
@@ -279,7 +304,11 @@
             </svg>
         </div>
 
-        <!-- [تعديل هنا] إضافة كلاس anim-slide للصور وإعطاء الصورة الأولى كلاس active لتبدأ بها الحركة -->
+        <div class="dance-header">
+            <h3>فرحة العروس.. الرقصة الأولى</h3>
+            <p>علـى ضَـوء الشُّمـوع نَزِفُّ العَروسَ</p>
+        </div>
+
         <div class="photo-animation-container">
             <img class="anim-slide active" src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
             <img class="anim-slide" src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
@@ -337,10 +366,12 @@
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 1500); // تم تعديل الوقت لـ 1.5 ثانية ليكون التبديل مريح للعين
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 1200); // سرعة تبديل الرقصة (ثانية وعُشرين) عشان تلحق العين تلمح الحركة
     </script>
 </body>
 </html>
