@@ -7,23 +7,23 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- استدعاء أجدد وأفخم الخطوط المتناسقة للدعوات -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Reem+Kufi+Fun:wght@500;700&family=Amiri:ital,wght@1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-color: #f0dfcc; 
-            --main-brown: #563321; 
-            --gold-accent: #b8860b;
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(86, 51, 33, 0.08);
+            --bg-light: #fdf3e7;
+            --main-gold: #c59b27;
+            --premium-bronze: #5c3a21;
+            --glow-color: rgba(197, 155, 39, 0.35);
         }
 
         body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-color);
-            color: var(--main-brown);
+            background-color: var(--bg-light);
+            color: var(--premium-bronze);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -35,15 +35,13 @@
             margin: 0 auto;
             padding: 0; 
             box-sizing: border-box;
-            background-color: var(--bg-color);
             position: relative;
+            background: linear-gradient(180deg, #fbf2e3 0%, #ebdccb 50%, #fdf3e7 100%);
+            box-shadow: 0 0 40px rgba(43, 23, 12, 0.15);
         }
 
-        /* تعديل 1: الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
         .first-hero {
             width: 100%;
-            margin: 0;
-            padding: 0;
             line-height: 0;
             display: block;
         }
@@ -52,36 +50,124 @@
             width: 100%;
             height: auto;
             display: block;
-            border: none;
         }
 
-        /* كروت الميديا الانسيابية مدمجة الحواف */
-        .media-card {
-            background: transparent;
-            border: none;
+        /* 👑 قسم العداد التنازلي الملكي المطور (توهج فاجر) */
+        .countdown-section {
+            padding: 35px 20px;
+            text-align: center;
+            position: relative;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            margin: 25px 15px;
+            border: 1px solid rgba(197, 155, 39, 0.2);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(92, 58, 33, 0.05);
+        }
+
+        .countdown-title {
+            font-family: 'Reem Kufi Fun', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--premium-bronze);
+            margin-bottom: 6px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+
+        .countdown-subtitle {
+            font-size: 0.85rem;
+            color: var(--main-gold);
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 8px;
+            direction: ltr; 
+        }
+
+        /* تضبيط شكل كروت الوقت الدائرية الفخمة بالتوهج والظلال */
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 82px;
+            height: 82px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 50%; 
+            border: 1.5px solid rgba(197, 155, 39, 0.3);
+            /* بهارات التوهج الذهبي حول العداد */
+            box-shadow: 0 0 15px var(--glow-color), inset 0 0 8px rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+
+        .time-number {
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--premium-bronze);
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #8c6347;
+            margin-top: 3px;
+        }
+
+        /* 💃 قسم الرقصة الفخم والزخارف الفاجرة */
+        .dance-wrapper {
+            margin: 35px 0 15px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .dance-header h3 {
+            font-family: 'Reem Kufi Fun', sans-serif;
+            font-size: 1.8rem;
+            color: var(--premium-bronze);
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* إضافة لمسة زخرفية ذهبية حول عنوان الرقصة */
+        .dance-header h3::before, .dance-header h3::after {
+            content: '✦';
+            color: var(--main-gold);
+            font-size: 1.2rem;
+            text-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .dance-header .poem-line {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            color: var(--main-gold);
             margin: 0;
-            padding: 0;
-            width: 100%;
-            display: block;
-            line-height: 0;
+            font-style: italic;
+            line-height: 1.4;
+            font-weight: 600;
         }
 
-        .media-card img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* حاوية التبديل الفوري في كدر ثابت مدمج */
+        /* حاوية التبديل الفوري الموسطة مع التوهج السينمائي */
         .photo-animation-container {
             width: 100%;
             position: relative;
-            background-color: var(--bg-color);
             display: grid;
             grid-template-columns: 1fr;
-            margin: 0;
-            padding: 0;
+            margin: 25px 0;
             line-height: 0;
+            justify-items: center;
+            align-items: center;
+            background: radial-gradient(circle, rgba(197,155,39,0.18) 0%, transparent 65%);
         }
         
         .anim-slide {
@@ -90,144 +176,51 @@
             width: 100%;
             height: auto;
             display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            filter: drop-shadow(0 10px 20px rgba(92, 58, 33, 0.12));
         }
         
         .anim-slide.active {
             display: block;
+            opacity: 1;
             z-index: 2;
         }
 
-        /* تأثير الأنيميشن والغطاء الحركي لدمج الفواصل */
-        .wave-separator {
+        /* كروت الميديا الأصلية */
+        .media-card {
             width: 100%;
-            line-height: 0;
-            position: relative;
-            background-color: var(--bg-color);
-            margin: -1px 0; /* لمنع ظهور فراغات البكسل */
-        }
-
-        .wave-separator svg {
-            position: relative;
             display: block;
+            line-height: 0;
+            margin-top: 20px;
+        }
+
+        .media-card img {
             width: 100%;
-            height: 40px;
+            height: auto;
+            display: block;
         }
 
-        .wave-path {
-            fill: #ebdccb; /* درجة لونية متناغمة ممزوجة تخفي عيوب أطراف الصور */
-            animation: waveMove 4s ease-in-out infinite alternate;
-        }
-
-        @keyframes waveMove {
-            0% { d: path("M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"); }
-            100% { d: path("M0,25 C120,5 280,35 460,20 L460,40 L0,40 Z"); }
-        }
-
-        /* العداد التنازلي الدائري المودرن الفخم */
-        .countdown-section {
-            background: linear-gradient(180deg, #ebdccb, var(--bg-color));
-            padding: 30px 15px;
-            text-align: center;
-            margin: 0;
-            position: relative;
-        }
-
-        .countdown-title {
-            font-family: 'Amiri', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--main-brown);
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        .countdown-grid {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            direction: ltr; 
-        }
-
-        .time-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 78px;
-            height: 78px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 50%; 
-            border: 1px solid rgba(86, 51, 33, 0.05);
-            box-shadow: 0 4px 12px rgba(86, 51, 33, 0.03);
-        }
-
-        .time-number {
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: var(--main-brown);
-            line-height: 1;
-        }
-
-        .time-label {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--main-brown);
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-
-        /* قسم موقع الخريطة الانسيابي */
-        .location-section {
-            text-align: center;
-            margin: 0;
-            padding: 35px 20px;
-            background: linear-gradient(180deg, var(--bg-color), #ebdccb);
-        }
-
-        .location-title {
-            font-family: 'Amiri', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        .location-desc {
-            font-size: 0.88rem;
-            opacity: 0.85;
-            margin-bottom: 22px;
-            padding: 0 15px;
-            line-height: 1.6;
-        }
-
-        .location-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background-color: var(--main-brown);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            box-shadow: 0 6px 20px rgba(86, 51, 33, 0.15);
-            transition: all 0.3s ease;
-        }
-
-        .location-btn:hover {
-            background-color: #3d2316;
-            transform: scale(1.02);
-        }
-
+        /* 📜 تذييل فخم ومنسق للكلام اللي في الآخر */
         .footer-poem {
-            font-family: 'Amiri', serif;
+            font-family: 'Reem Kufi Fun', sans-serif;
             text-align: center;
-            font-size: 1.4rem;
-            line-height: 1.7;
-            padding: 40px 0;
-            background-color: #ebdccb;
+            font-size: 1.35rem;
+            line-height: 1.8;
+            padding: 50px 20px;
+            background: linear-gradient(180deg, transparent 0%, rgba(92, 58, 33, 0.08) 100%);
             margin: 0;
-            color: var(--main-brown);
+            color: var(--premium-bronze);
+            font-weight: 700;
+        }
+
+        .premium-divider {
+            text-align: center;
+            padding: 10px 0;
+            color: var(--main-gold);
+            font-size: 1.2rem;
+            opacity: 0.6;
+            letter-spacing: 5px;
         }
     </style>
 </head>
@@ -235,18 +228,16 @@
 
     <div class="main-wrapper">
 
+        <!-- هيرو البداية الملكي -->
         <div class="first-hero">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="حنة آية الجزء الأول">
         </div>
 
-        <div class="wave-separator">
-            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
-                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
-            </svg>
-        </div>
-
+        <!-- 👑 العداد التنازلي بالتصميم المطور والتوهج الفاجر -->
         <div class="countdown-section">
-            <div class="countdown-title">الوقت المتبقي على الليلة المنتظرة</div>
+            <div class="countdown-title">تَبَــقَّى عَلَى لَـيْلَةِ العُـمْر</div>
+            <div class="countdown-subtitle">شاركونا تفاصيل الفرحة والبهجة</div>
+            
             <div class="countdown-grid" id="countdown">
                 <div class="time-box">
                     <span class="time-number" id="seconds">00</span>
@@ -267,38 +258,33 @@
             </div>
         </div>
 
-        <div class="wave-separator" style="transform: scaleY(-1);">
-            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
-                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
-            </svg>
+        <div class="premium-divider">✨ ✦ 👑 ✦ ✨</div>
+
+        <!-- 💃 قسم الرقصة والزخارف المظبوطة مع الكلام الجامد -->
+        <div class="dance-wrapper">
+            <div class="dance-header">
+                <h3>فرحة العروس.. الرقصة الأولى</h3>
+                <p class="poem-line">يا قمر ضوّي عليها.. ليلة الحنّة بين إيديها ✨</p>
+            </div>
+
+            <!-- حاوية التبديل الفوري الموسطة تماماً بتأثير الإضاءة الخلفية -->
+            <div class="photo-animation-container">
+                <img class="anim-slide active" src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
+                <img class="anim-slide" src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
+            </div>
         </div>
 
-        <div class="photo-animation-container">
-            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
-            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
-        </div>
+        <div class="premium-divider">✨ ✦ 👑 ✦ ✨</div>
 
-        <div class="wave-separator">
-            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
-                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
-            </svg>
-        </div>
-
-        <div class="location-section">
-            <div class="location-title"><i class="fa-solid fa-map-location-dot" style="color: var(--gold-accent);"></i> موقع ومكان الحفل</div>
-            <div class="location-desc">يسعدنا حضوركم وتشريفكم لنا، اضغط على الزر أدناه لتوجيهك إلى موقع القاعة مباشرة على الخرائط.</div>
-            <a href="#" target="_blank" class="location-btn">
-                <i class="fa-solid fa-location-arrow"></i> فتح الاتجاهات على الخريطة
-            </a>
-        </div>
-
+        <!-- كارت الصورة الأخير (الأصلي بتاعك) -->
         <div class="media-card">
             <img src="WhatsApp_Image_1447-12-23_at_21.08.19__2___1_-removebg-preview.png" alt="حنة آية الجزء الأخير">
         </div>
 
+        <!-- 📜 الكلام اللي في الآخر متقفل بشكل شيك جداً بالخط الفاجر -->
         <div class="footer-poem">
             حضوركم يكتمل به فرحنا وسرورنا.. <br>
-            وعاقبة المسرات لكم دائمًا دامت دياركم بالأفراح 🎉
+            ودامت دياركم بالمسرات والأفراح المبهجة دائماً 🎉
         </div>
 
     </div>
@@ -326,15 +312,16 @@
             }
         }, 1000);
 
-        // تبديل فوري "قطع فوري" للصور في كدر ثابت تماماً ومحاذاة تامة
+        // تبديل تلقائي ناعم للرقصة
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 1000);
+            if(slides.length > 0) {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }
+        }, 1100);
     </script>
 </body>
 </html>
-
