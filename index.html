@@ -39,7 +39,7 @@
             position: relative;
         }
 
-        /* تعديل 1: الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
+        /* الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
         .first-hero {
             width: 100%;
             margin: 0;
@@ -72,7 +72,7 @@
             display: block;
         }
 
-        /* حاوية التبديل الفوري في كدر ثابت مدمج */
+        /* [تعديل] ضبط حاوية التبديل للحركتين وتوسيط الصور تماماً */
         .photo-animation-container {
             width: 100%;
             position: relative;
@@ -82,18 +82,24 @@
             margin: 0;
             padding: 0;
             line-height: 0;
+            justify-items: center; /* توسيط الصور أفقياً */
+            align-items: center;    /* توسيط الصور رأسياً */
         }
         
+        /* [تعديل] الكلاس اللي كان ناقص في الـ HTML */
         .anim-slide {
             grid-column: 1;
             grid-row: 1;
             width: 100%;
             height: auto;
-            display: none;
+            display: none; /* إخفاء الصور افتراضياً */
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out; /* تأثير ناعم أثناء التبديل */
         }
         
         .anim-slide.active {
             display: block;
+            opacity: 1;
             z-index: 2;
         }
 
@@ -273,9 +279,10 @@
             </svg>
         </div>
 
+        <!-- [تعديل هنا] إضافة كلاس anim-slide للصور وإعطاء الصورة الأولى كلاس active لتبدأ بها الحركة -->
         <div class="photo-animation-container">
-            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
-            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
+            <img class="anim-slide active" src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
+            <img class="anim-slide" src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
         </div>
 
         <div class="wave-separator">
@@ -326,14 +333,14 @@
             }
         }, 1000);
 
-        // تبديل فوري "قطع فوري" للصور في كدر ثابت تماماً ومحاذاة تامة
+        // تبديل تلقائي ناعم للصور في كدر ثابت تماماً ومحاذاة تامة
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
             slides[currentSlide].classList.remove('active');
             currentSlide = (currentSlide + 1) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 1000);
+        }, 1500); // تم تعديل الوقت لـ 1.5 ثانية ليكون التبديل مريح للعين
     </script>
 </body>
 </html>
