@@ -7,24 +7,23 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- استدعاء خطوط فاجرة ومودرن تليق بالدعوات الفخمة -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Reem+Kufi+Fun:wght@500;700&family=Amiri:ital,wght@1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
-            --bg-dark: #2b170c;
-            --bg-light: #fdf3e7;
-            --main-gold: #d4af37;
-            --premium-bronze: #5c3a21;
-            --glow-color: rgba(212, 175, 55, 0.3);
+            --bg-color: #f0dfcc; 
+            --main-brown: #563321; 
+            --gold-accent: #b8860b;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(86, 51, 33, 0.08);
         }
 
         body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-light);
-            color: var(--premium-bronze);
+            background-color: var(--bg-color);
+            color: var(--main-brown);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
@@ -36,13 +35,15 @@
             margin: 0 auto;
             padding: 0; 
             box-sizing: border-box;
+            background-color: var(--bg-color);
             position: relative;
-            background: linear-gradient(180deg, #fbf2e3 0%, #ebdccb 50%, #fdf3e7 100%);
-            box-shadow: 0 0 40px rgba(43, 23, 12, 0.15);
         }
 
+        /* تعديل 1: الصورة الأولى ملتصقة تماماً بأعلى الشاشة */
         .first-hero {
             width: 100%;
+            margin: 0;
+            padding: 0;
             line-height: 0;
             display: block;
         }
@@ -51,202 +52,18 @@
             width: 100%;
             height: auto;
             display: block;
+            border: none;
         }
 
-        /* 👑 قسم العداد التنازلي الفاجر (مفهوم زجاجي ملكي) */
-        .countdown-section {
-            padding: 40px 20px;
-            text-align: center;
-            position: relative;
-            background: linear-gradient(135deg, rgba(92, 58, 33, 0.05), rgba(214, 175, 55, 0.05));
-            border-radius: 24px;
-            margin: 20px 15px;
-            border: 1px solid rgba(214, 175, 55, 0.15);
-            backdrop-filter: blur(10px);
-        }
-
-        .countdown-title {
-            font-family: 'Reem Kufi Fun', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--premium-bronze);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .countdown-subtitle {
-            font-size: 0.85rem;
-            color: var(--main-gold);
-            font-weight: 700;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        .countdown-grid {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            direction: ltr; 
-        }
-
-        /* كروت الوقت الزجاجية الفخمة */
-        .time-box {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-            height: 85px;
-            background: rgba(255, 255, 255, 0.75);
-            border-radius: 16px; 
-            border: 1px solid rgba(214, 175, 55, 0.3);
-            box-shadow: 0 8px 20px rgba(92, 58, 33, 0.06);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        /* تأثير توهج نيون متحرك خفيف تحت الأرقام */
-        .time-box::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, var(--main-gold), transparent);
-        }
-
-        .time-number {
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--premium-bronze);
-            line-height: 1.1;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .time-label {
-            font-family: 'Cairo', sans-serif;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #8c6347;
-            margin-top: 2px;
-        }
-
-        /* 💃 قسم الرقصة الفخم والكلمات الموزونة */
-        .dance-wrapper {
-            margin: 30px 0 10px 0;
-            text-align: center;
-            position: relative;
-        }
-
-        .dance-header {
-            padding: 0 20px;
-        }
-
-        .dance-header h3 {
-            font-family: 'Reem Kufi Fun', sans-serif;
-            font-size: 1.8rem;
-            color: var(--premium-bronze);
-            margin: 0 0 8px 0;
-            font-weight: 700;
-        }
-
-        .dance-header .poem-line {
-            font-family: 'Amiri', serif;
-            font-size: 1.25rem;
-            color: var(--main-gold);
-            margin: 0;
-            font-style: italic;
-            line-height: 1.4;
-        }
-
-        /* حاوية التبديل الفوري */
-        .photo-animation-container {
-            width: 100%;
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr;
-            margin: 20px 0;
-            padding: 0;
-            line-height: 0;
-            justify-items: center;
-            align-items: center;
-            /* توهج سينمائي خلف صور العروسة الفراغية لخلق عمق مبهر */
-            background: radial-gradient(circle, rgba(214,175,55,0.18) 0%, transparent 65%);
-        }
-        
-        .anim-slide {
-            grid-column: 1;
-            grid-row: 1;
-            width: 100%;
-            height: auto;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            /* فلتر لتنعيم أطراف الصور وتدميجها بالفخامة */
-            filter: drop-shadow(0 10px 20px rgba(92, 58, 33, 0.15));
-        }
-        
-        .anim-slide.active {
-            display: block;
-            opacity: 1;
-            z-index: 2;
-        }
-
-        /* قسم موقع ومكان الحفل المودرن */
-        .location-section {
-            text-align: center;
-            margin: 20px 15px;
-            padding: 35px 20px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 24px;
-            border: 1px solid rgba(214, 175, 55, 0.1);
-        }
-
-        .location-title {
-            font-family: 'Reem Kufi Fun', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: var(--premium-bronze);
-        }
-
-        .location-desc {
-            font-size: 0.9rem;
-            color: #6e513c;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-weight: 600;
-        }
-
-        .location-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--premium-bronze) 0%, #3a2211 100%);
-            color: #ffffff;
-            text-decoration: none;
-            padding: 15px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-            box-shadow: 0 10px 25px rgba(58, 34, 17, 0.25);
-            transition: all 0.3s ease;
-        }
-
-        .location-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(58, 34, 17, 0.35);
-        }
-
+        /* كروت الميديا الانسيابية مدمجة الحواف */
         .media-card {
+            background: transparent;
+            border: none;
+            margin: 0;
+            padding: 0;
             width: 100%;
             display: block;
             line-height: 0;
-            margin-top: 15px;
         }
 
         .media-card img {
@@ -255,27 +72,162 @@
             display: block;
         }
 
-        /* 📜 تذييل فخم بالقصيد والخط العربي الديواني */
-        .footer-poem {
-            font-family: 'Reem Kufi Fun', sans-serif;
-            text-align: center;
-            font-size: 1.3rem;
-            line-height: 1.8;
-            padding: 45px 20px;
-            background: linear-gradient(180deg, transparent 0%, rgba(92, 58, 33, 0.08) 100%);
+        /* حاوية التبديل الفوري في كدر ثابت مدمج */
+        .photo-animation-container {
+            width: 100%;
+            position: relative;
+            background-color: var(--bg-color);
+            display: grid;
+            grid-template-columns: 1fr;
             margin: 0;
-            color: var(--premium-bronze);
-            font-weight: 700;
+            padding: 0;
+            line-height: 0;
+        }
+        
+        .anim-slide {
+            grid-column: 1;
+            grid-row: 1;
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+        
+        .anim-slide.active {
+            display: block;
+            z-index: 2;
         }
 
-        /* فواصل زخرفية ناعمة راقية بديلة للويف التقليدي الميت */
-        .premium-divider {
+        /* تأثير الأنيميشن والغطاء الحركي لدمج الفواصل */
+        .wave-separator {
+            width: 100%;
+            line-height: 0;
+            position: relative;
+            background-color: var(--bg-color);
+            margin: -1px 0; /* لمنع ظهور فراغات البكسل */
+        }
+
+        .wave-separator svg {
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 40px;
+        }
+
+        .wave-path {
+            fill: #ebdccb; /* درجة لونية متناغمة ممزوجة تخفي عيوب أطراف الصور */
+            animation: waveMove 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes waveMove {
+            0% { d: path("M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"); }
+            100% { d: path("M0,25 C120,5 280,35 460,20 L460,40 L0,40 Z"); }
+        }
+
+        /* العداد التنازلي الدائري المودرن الفخم */
+        .countdown-section {
+            background: linear-gradient(180deg, #ebdccb, var(--bg-color));
+            padding: 30px 15px;
             text-align: center;
-            padding: 15px 0;
-            color: var(--main-gold);
-            font-size: 1.2rem;
-            opacity: 0.5;
-            letter-spacing: 4px;
+            margin: 0;
+            position: relative;
+        }
+
+        .countdown-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--main-brown);
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-grid {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            direction: ltr; 
+        }
+
+        .time-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 78px;
+            height: 78px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%; 
+            border: 1px solid rgba(86, 51, 33, 0.05);
+            box-shadow: 0 4px 12px rgba(86, 51, 33, 0.03);
+        }
+
+        .time-number {
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--main-brown);
+            line-height: 1;
+        }
+
+        .time-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--main-brown);
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        /* قسم موقع الخريطة الانسيابي */
+        .location-section {
+            text-align: center;
+            margin: 0;
+            padding: 35px 20px;
+            background: linear-gradient(180deg, var(--bg-color), #ebdccb);
+        }
+
+        .location-title {
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .location-desc {
+            font-size: 0.88rem;
+            opacity: 0.85;
+            margin-bottom: 22px;
+            padding: 0 15px;
+            line-height: 1.6;
+        }
+
+        .location-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--main-brown);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 20px rgba(86, 51, 33, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .location-btn:hover {
+            background-color: #3d2316;
+            transform: scale(1.02);
+        }
+
+        .footer-poem {
+            font-family: 'Amiri', serif;
+            text-align: center;
+            font-size: 1.4rem;
+            line-height: 1.7;
+            padding: 40px 0;
+            background-color: #ebdccb;
+            margin: 0;
+            color: var(--main-brown);
         }
     </style>
 </head>
@@ -283,16 +235,18 @@
 
     <div class="main-wrapper">
 
-        <!-- هيرو البداية الملكي -->
         <div class="first-hero">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="حنة آية الجزء الأول">
         </div>
 
-        <!-- 👑 العداد التنازلي الزجاجي الفخم الجديد -->
+        <div class="wave-separator">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
+        </div>
+
         <div class="countdown-section">
-            <div class="countdown-title">تَبَــقَّى عَلَى لَـيْلَةِ العُـمْر</div>
-            <div class="countdown-subtitle">شاركونا تفاصيل الفرحة والبهجة</div>
-            
+            <div class="countdown-title">الوقت المتبقي على الليلة المنتظرة</div>
             <div class="countdown-grid" id="countdown">
                 <div class="time-box">
                     <span class="time-number" id="seconds">00</span>
@@ -313,42 +267,38 @@
             </div>
         </div>
 
-        <div class="premium-divider">✦ ✦ ✦</div>
-
-        <!-- 💃 قسم الرقصة الفاجر بالكلام الموزون الحماسي -->
-        <div class="dance-wrapper">
-            <div class="dance-header">
-                <h3>فرحة العروس.. الرقصة الأولى</h3>
-                <p class="poem-line">يا قمر ضوّي عليها.. ليلة الحنّة بين إيديها ✨</p>
-            </div>
-
-            <!-- حاوية التبديل الموسطة المدعومة بالتوهج الخلفي السينمائي -->
-            <div class="photo-animation-container">
-                <img class="anim-slide active" src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
-                <img class="anim-slide" src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
-            </div>
+        <div class="wave-separator" style="transform: scaleY(-1);">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
         </div>
 
-        <div class="premium-divider">✦ ✦ ✦</div>
+        <div class="photo-animation-container">
+            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
+            <img src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
+        </div>
 
-        <!-- قسم موقع ومكان الحفل الـ Premium -->
+        <div class="wave-separator">
+            <svg viewBox="0 0 460 40" preserveAspectRatio="none">
+                <path class="wave-path" d="M0,15 C150,30 300,0 460,15 L460,40 L0,40 Z"></path>
+            </svg>
+        </div>
+
         <div class="location-section">
-            <div class="location-title"><i class="fa-solid fa-star" style="color: var(--main-gold); font-size: 1rem;"></i> مَـوْقِعُ الحَـفْلِ المَلَـكِيّ</div>
-            <div class="location-desc">تكتمل سعادتنا بوجودكم معنا، اضغط على الزر بالأسفل لتوجيهك المباشر لقاعة الفرح عبر الخرائط.</div>
+            <div class="location-title"><i class="fa-solid fa-map-location-dot" style="color: var(--gold-accent);"></i> موقع ومكان الحفل</div>
+            <div class="location-desc">يسعدنا حضوركم وتشريفكم لنا، اضغط على الزر أدناه لتوجيهك إلى موقع القاعة مباشرة على الخرائط.</div>
             <a href="#" target="_blank" class="location-btn">
-                <i class="fa-solid fa-location-arrow"></i> عـرض الاتـجـاهـات الآن
+                <i class="fa-solid fa-location-arrow"></i> فتح الاتجاهات على الخريطة
             </a>
         </div>
 
-        <!-- كارت الختام الميديا -->
         <div class="media-card">
             <img src="WhatsApp_Image_1447-12-23_at_21.08.19__2___1_-removebg-preview.png" alt="حنة آية الجزء الأخير">
         </div>
 
-        <!-- قصيدة الختام الفخمة -->
         <div class="footer-poem">
             حضوركم يكتمل به فرحنا وسرورنا.. <br>
-            ودامت دياركم بالمسرات والأفراح المبهجة دائماً 🎉
+            وعاقبة المسرات لكم دائمًا دامت دياركم بالأفراح 🎉
         </div>
 
     </div>
@@ -376,18 +326,15 @@
             }
         }, 1000);
 
-        // تبديل تلقائي احترافي وسريع للرقصة
+        // تبديل فوري "قطع فوري" للصور في كدر ثابت تماماً ومحاذاة تامة
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
-            if(slides.length > 0) {
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }
-        }, 1100); // سرعة حركة متناسقة جداً مع إيقاع الرقصة
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 1000);
     </script>
 </body>
 </html>
-
 
