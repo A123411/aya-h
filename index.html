@@ -214,17 +214,92 @@
             font-weight: 700;
         }
 
-        .premium-divider {
-            text-align: center;
-            padding: 10px 0;
+        /* ✨ زخرفة ملكية فخمة ومتحركة للفصل بين الأقسام */
+        .royal-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto;
+            width: 85%;
+        }
+
+        .royal-divider::before, .royal-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to left, transparent, var(--main-gold), transparent);
+        }
+
+        .royal-divider::after {
+            background: linear-gradient(to right, transparent, var(--main-gold), transparent);
+        }
+
+        .royal-divider-center {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 15px;
             color: var(--main-gold);
-            font-size: 1.2rem;
-            opacity: 0.6;
-            letter-spacing: 5px;
+        }
+
+        .royal-divider-center i {
+            font-size: 1.1rem;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+
+        .royal-divider-center .main-icon {
+            font-size: 1.5rem;
+            animation: pulseGlow 2.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); filter: drop-shadow(0 0 2px var(--main-gold)); }
+            100% { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--main-gold)); }
+        }
+
+        /* 🎵 زر التحكم في الصوت الملكي العائم */
+        .music-control-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--premium-bronze);
+            border: 2px solid var(--main-gold);
+            color: var(--main-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--glow-color);
+            z-index: 9999;
+            transition: all 0.3s ease;
+        }
+
+        /* حركة الدوران عند تشغيل الموسيقى */
+        .music-control-btn.playing {
+            animation: rotateMusicBtn 4s linear infinite;
+            background: #fff;
+            color: var(--premium-bronze);
+        }
+
+        @keyframes rotateMusicBtn {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
+
+    <!-- إضافة عنصر الصوت المخفي ولوب للتكرار التلقائي -->
+    <audio id="inviteAudio" src="12.mp3" loop></audio>
+
+    <!-- زر الموسيقى العائم -->
+    <button class="music-control-btn" id="musicBtn" onclick="toggleAudio()">
+        <i class="fas fa-music"></i>
+    </button>
 
     <div class="main-wrapper">
 
@@ -258,7 +333,14 @@
             </div>
         </div>
 
-        <div class="premium-divider">✨ ✦ 👑 ✦ ✨</div>
+        <!-- ⚜️ فاصل زخرفي ملكي 1 -->
+        <div class="royal-divider">
+            <div class="royal-divider-center">
+                <i class="layer-group fas fa-leaf"></i>
+                <i class="main-icon fas fa-crown"></i>
+                <i class="layer-group fas fa-leaf fa-flip-horizontal"></i>
+            </div>
+        </div>
 
         <!-- 💃 قسم الرقصة والزخارف المظبوطة مع الكلام الجامد -->
         <div class="dance-wrapper">
@@ -274,7 +356,14 @@
             </div>
         </div>
 
-        <div class="premium-divider">✨ ✦ 👑 ✦ ✨</div>
+        <!-- ⚜️ فاصل زخرفي ملكي 2 -->
+        <div class="royal-divider">
+            <div class="royal-divider-center">
+                <i class="layer-group fas fa-leaf"></i>
+                <i class="main-icon fas fa-gem"></i>
+                <i class="layer-group fas fa-leaf fa-flip-horizontal"></i>
+            </div>
+        </div>
 
         <!-- كارت الصورة الأخير (الأصلي بتاعك) -->
         <div class="media-card">
@@ -322,6 +411,32 @@
                 slides[currentSlide].classList.add('active');
             }
         }, 500);
+
+        // التحكم الذكي في تشغيل وإيقاف الصوت
+        const audio = document.getElementById('inviteAudio');
+        const musicBtn = document.getElementById('musicBtn');
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            }
+        }
+
+        // محاولة التشغيل التلقائي فور تفاعل الزائر مع أي جزء في الصفحة
+        document.addEventListener('click', function() {
+            if (audio.paused && !musicBtn.classList.contains('playing')) {
+                audio.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(err => console.log("Autoplay blocked by browser until direct interaction."));
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
