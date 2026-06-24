@@ -29,42 +29,62 @@
             scroll-behavior: smooth;
         }
 
-        /* 🎬 تنسيقات شاشة الستارة الذكية برمجياً */
+        /* 🎬 شاشة الستارة المقفلة المحمية بالكامل ومنع التقليب */
         #curtain-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
-            z-index: 99999;
+            height: -webkit-fill-available;
+            background-color: #000; /* خلفية سوداء فخمة تمنع ظهور أي بياض */
+            z-index: 999999;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #000;
-            cursor: pointer;
+            overflow: hidden;
+            touch-action: none; /* منع السحب والتقليب نهائياً قبل الفتح */
         }
 
         #curtain-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            pointer-events: none;
+            object-fit: cover; /* الستارة تملى الشاشة بالظبط بدون تمطيط */
+            z-index: 1;
         }
 
+        /* 🔔 زر الفتح الملكي اللي بيتنطط ويتحرك */
         .curtain-btn {
-            position: absolute;
-            z-index: 100000;
+            position: relative;
+            z-index: 2;
             font-family: 'Reem Kufi Fun', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #fff;
-            background: rgba(92, 58, 33, 0.85);
-            padding: 15px 35px;
+            background: rgba(92, 58, 33, 0.9);
+            padding: 16px 32px;
             border-radius: 50px;
             border: 2px solid var(--main-gold);
-            box-shadow: 0 0 20px var(--main-gold);
-            pointer-events: none;
-            animation: pulseGlow 1.5s ease-in-out infinite alternate;
+            box-shadow: 0 0 25px var(--main-gold);
+            cursor: pointer;
             text-align: center;
+            animation: bounceAndGlow 1.2s ease-in-out infinite alternate; /* حركة التنطيط الذكية */
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        @keyframes bounceAndGlow {
+            0% { 
+                transform: translateY(0) scale(1); 
+                box-shadow: 0 0 15px var(--main-gold); 
+            }
+            100% { 
+                transform: translateY(-12px) scale(1.03); 
+                box-shadow: 0 0 30px var(--main-gold), 0 0 10px #fff; 
+            }
         }
 
         .main-wrapper {
@@ -331,10 +351,11 @@
 </head>
 <body>
 
-    <!-- 🎬 حاوية الستارة التفاعلية (مخفية لايف بالـ Canvas) -->
+    <!-- 🎬 حاوية الستارة التفاعلية المحمية والمحسنة بالكامل -->
     <div id="curtain-overlay" onclick="openCurtain()">
         <div class="curtain-btn" id="curtainBtn">انقر لفتح الدعوة الملكية ✨</div>
-        <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.mov" playsinline muted style="display:none;"></video>
+        <!-- تم إضافة صبغة صامتة وتشغيل متوافق مع كافة الهواتف وشفافية أولية -->
+        <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.mov" playsinline muted style="display:none; width:100%; height:100%; object-fit:cover;"></video>
         <canvas id="curtain-canvas"></canvas>
     </div>
 
@@ -424,27 +445,52 @@
     </div>
 
     <script>
-        // 🎬 منطق معالجة الجرين سكرين من فيديو الستارة وعرض الموقع خلفه تلقائياً
+        // 🎬 معالجة الكروما وضبط الأبعاد بدون أي تمديد مشوه
         const video = document.getElementById('curtainVideo');
         const canvas = document.getElementById('curtain-canvas');
         const ctx = canvas.getContext('2d');
         let animationFrameId;
 
-        // تضبيط أبعاد لوحة الرسم لتناسب حجم الفيديو الفعلي عند تحميله
-        video.addEventListener('loadedmetadata', () => {
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-        });
+        // دالة تحديد الأبعاد بناء على حجم نافذة العرض الفعلي للمتصفح لمنع المشاكل
+        function resizeCanvas() {
+            canvas.width = window.innerWidth * window.devicePixelRatio;
+            canvas.height = window.innerHeight * window.devicePixelRatio;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
         function processCurtainFrame() {
             if (video.paused || video.ended) {
                 if (video.ended) {
-                    document.getElementById('curtain-overlay').remove(); // إزالة الستارة نهائياً لتصفح الموقع بسلاسة
+                    document.getElementById('curtain-overlay').remove(); // تدمير شاشة الستارة نهائياً لتمكين الضغط بالموقع
                 }
                 return;
             }
 
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // رسم الفريم بأبعاد ذكية متناسقة (Cover Setup)
+            let vWidth = video.videoWidth;
+            let vHeight = video.videoHeight;
+            if(vWidth > 0 && vHeight > 0) {
+                let canvasRatio = canvas.width / canvas.height;
+                let videoRatio = vWidth / vHeight;
+                let sx, sy, sw, sh;
+
+                if (canvasRatio > videoRatio) {
+                    sw = vWidth;
+                    sh = vWidth / canvasRatio;
+                    sx = 0;
+                    sy = (vHeight - sh) / 2;
+                } else {
+                    sh = vHeight;
+                    sw = vHeight * canvasRatio;
+                    sx = (vWidth - sw) / 2;
+                    sy = 0;
+                }
+                ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
+            } else {
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            }
+
             let frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
             let length = frame.data.length / 4;
 
@@ -453,9 +499,9 @@
                 let g = frame.data[i * 4 + 1];
                 let b = frame.data[i * 4 + 2];
 
-                // كشف الكروما الخضراء برمجياً وإزالتها بدقة عالية ليظهر الموقع بالخلفية
-                if (g > 110 && r < 90 && b < 90) {
-                    frame.data[i * 4 + 3] = 0; // تحويل الأخضر لشفاف تماماً
+                // فلتر الكروما الخضراء النقي لتبدأ الستارة بالفتح على الموقع الأصلي مباشرة
+                if (g > 100 && r < 95 && b < 95) {
+                    frame.data[i * 4 + 3] = 0;
                 }
             }
             ctx.putImageData(frame, 0, 0);
@@ -464,20 +510,20 @@
 
         function openCurtain() {
             const btn = document.getElementById('curtainBtn');
-            if (btn) btn.remove(); // إخفاء زر التنبيه فوراً
+            if (!btn) return; // منع التكرار إذا تم الضغط مسبقاً
+            btn.remove();
 
-            // تشغيل الموسيقى الملكية والدعوة مع حركة الفتح تلقائياً
+            // إجبار تشغيل الصوت تزامناً مع الفتح لحل قيود المتصفحات
+            const audio = document.getElementById('inviteAudio');
             if (audio.paused) {
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
                     musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }).catch(err => console.log("Audio autoplay restriction handled."));
+                }).catch(err => console.log("Audio play deferred."));
             }
 
             video.play();
-            // تفعيل فحص أبعاد الـ Canvas احتياطياً في حال تعذر التجاوب السريع للمتصفح
-            canvas.width = video.videoWidth || 1920;
-            canvas.height = video.videoHeight || 1080;
+            resizeCanvas();
             processCurtainFrame();
         }
 
