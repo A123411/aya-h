@@ -28,7 +28,7 @@
             scroll-behavior: smooth;
         }
 
-        /* 🎬 شاشة الستارة الصاروخية بدون سواد */
+        /* 🎬 شاشة الستارة الصاروخية */
         #curtain-overlay {
             position: fixed;
             top: 0;
@@ -36,7 +36,7 @@
             width: 100%;
             height: 100vh;
             height: -webkit-fill-available;
-            background-color: #fbf2e3; /* خلفية بيج فخمة تظهر فوراً بدل السواد */
+            background-color: #fbf2e3; 
             z-index: 999999;
             display: flex;
             flex-direction: column;
@@ -325,7 +325,6 @@
     <!-- 🎬 شاشة الستارة السريعة جداً -->
     <div id="curtain-overlay" onclick="openCurtain()">
         <div class="click-prompt" id="promptText">اضغط هنا لفتح الدعوة الملكية ✨</div>
-        <!-- تم ربط اسم الفيديو المرفوع بالملي -->
         <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.MP4" playsinline muted autoplay preload="auto" style="display:none; width:100%; height:100%; object-fit:cover;"></video>
         <canvas id="curtain-canvas"></canvas>
     </div>
@@ -402,9 +401,22 @@
         }
         window.addEventListener('resize', resizeCanvas);
 
-        // التقاط الفريم الأول فوراً بمجرد بدء التحميل لمنع الشاشة السوداء نهائياً
-        video.addEventListener('loadeddata', resizeCanvas);
+        // تشغيل الرسم فوراً من البداية بدون انتظار ضغط الزرار
+        function checkAndDrawInitial() {
+            if (video.videoWidth > 0) {
+                resizeCanvas();
+            }
+        }
+
+        // ربط الرسم بكل الأحداث الممكنة لضمان ظهور أول فريم فوراً صاروخ
+        video.addEventListener('loadedmetadata', checkAndDrawInitial);
+        video.addEventListener('loadeddata', checkAndDrawInitial);
+        video.addEventListener('canplay', checkAndDrawInitial);
         video.addEventListener('seeked', drawFrame);
+
+        // تشغيل كود فحص احتياطي بعد ثانية لو النت بطيء عشان يظهر الفريم غصب عن المتصفح
+        setTimeout(checkAndDrawInitial, 1000);
+        setTimeout(checkAndDrawInitial, 2000);
 
         if (video.readyState >= 2) {
             resizeCanvas();
@@ -415,7 +427,7 @@
             let vHeight = video.videoHeight;
             if(vWidth > 0 && vHeight > 0) {
                 let canvasRatio = canvas.width / canvas.height;
-                let videoRatio = vWidth / videoRatio;
+                let videoRatio = vWidth / vHeight; 
                 let sx, sy, sw, sh;
 
                 if (canvasRatio > videoRatio) {
@@ -431,7 +443,7 @@
                 }
                 ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
                 
-                // تصفية ألوان الكروما الذكية لـ MP4 (تمسح الأخضر الفاتح والداكن بالملي)
+                // فلتر الكروما لتنظيف الأخضر تماماً بالملي
                 let frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 let length = frame.data.length / 4;
                 for (let i = 0; i < length; i++) {
@@ -439,9 +451,8 @@
                     let g = frame.data[i * 4 + 1];
                     let b = frame.data[i * 4 + 2];
 
-                    // معادلة حساسة جداً لالتقاط درجات الأخضر الناتجة عن ضغط الموبايل
                     if (g > 55 && g > r * 1.05 && g > b * 1.05) {
-                        frame.data[i * 4 + 3] = 0; // إخفاء الأخضر تماماً ليظهر الموقع تحته
+                        frame.data[i * 4 + 3] = 0; 
                     }
                 }
                 ctx.putImageData(frame, 0, 0);
@@ -471,7 +482,7 @@
                 audio.play().then(() => {
                     musicBtn.classList.add('playing');
                     musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }).catch(err => console.log("Audio activation deferred."));
+                }).catch(err => console.log("Audio deferred."));
             }
 
             video.loop = false;
