@@ -7,7 +7,6 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- استدعاء أجدد وأفخم الخطوط المتناسقة للدعوات -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Reem+Kufi+Fun:wght@500;700&family=Amiri:ital,wght@1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -29,7 +28,7 @@
             scroll-behavior: smooth;
         }
 
-        /* 🎬 شاشة الستارة الكاملة بدون أي أزرار تقليدية */
+        /* 🎬 شاشة الستارة الصاروخية بدون سواد */
         #curtain-overlay {
             position: fixed;
             top: 0;
@@ -37,14 +36,14 @@
             width: 100%;
             height: 100vh;
             height: -webkit-fill-available;
-            background-color: #000;
+            background-color: #fbf2e3; /* خلفية بيج فخمة تظهر فوراً بدل السواد */
             z-index: 999999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            touch-action: none; /* منع التقليب قبل الفتح */
+            touch-action: none;
             cursor: pointer;
         }
 
@@ -58,7 +57,7 @@
             z-index: 1;
         }
 
-        /* ✨ نص دعوة التفاعل المتنطط فوق الستارة مباشرة بدون خلفية زرار */
+        /* ✨ النص المتحرك فوق الستارة مباشرة */
         .click-prompt {
             position: relative;
             z-index: 2;
@@ -74,15 +73,8 @@
         }
 
         @keyframes textBounce {
-            0% { 
-                transform: translateY(0); 
-                opacity: 0.85;
-            }
-            100% { 
-                transform: translateY(-15px); 
-                opacity: 1;
-                text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff;
-            }
+            0% { transform: translateY(0); opacity: 0.85; }
+            100% { transform: translateY(-15px); opacity: 1; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff; }
         }
 
         .main-wrapper {
@@ -108,7 +100,7 @@
             display: block;
         }
 
-        /* 👑 قسم العداد التنازلي الملكي المطور (توهج فاجر) */
+        /* 👑 العداد التنازلي الملكي المطور */
         .countdown-section {
             padding: 35px 20px;
             text-align: center;
@@ -127,7 +119,6 @@
             font-weight: 700;
             color: var(--premium-bronze);
             margin-bottom: 6px;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.02);
         }
 
         .countdown-subtitle {
@@ -145,7 +136,6 @@
             direction: ltr; 
         }
 
-        /* تضبيط شكل كروت الوقت الدائرية الفخمة بالتوهج والظلال */
         .time-box {
             display: flex;
             flex-direction: column;
@@ -156,9 +146,7 @@
             background: rgba(255, 255, 255, 0.85);
             border-radius: 50%; 
             border: 1.5px solid rgba(197, 155, 39, 0.3);
-            /* بهارات التوهج الذهبي حول العداد */
             box-shadow: 0 0 15px var(--glow-color), inset 0 0 8px rgba(255, 255, 255, 0.8);
-            position: relative;
         }
 
         .time-number {
@@ -176,7 +164,7 @@
             margin-top: 3px;
         }
 
-        /* 💃 قسم الرقصة الفخم والزخارف الفاجرة */
+        /* 💃 قسم الرقصة والزخارف */
         .dance-wrapper {
             margin: 35px 0 15px 0;
             text-align: center;
@@ -195,12 +183,10 @@
             gap: 10px;
         }
 
-        /* إضافة لمسة زخرفية ذهبية حول عنوان الرقصة */
         .dance-header h3::before, .dance-header h3::after {
             content: '✦';
             color: var(--main-gold);
             font-size: 1.2rem;
-            text-shadow: 0 0 8px var(--glow-color);
         }
 
         .dance-header .poem-line {
@@ -213,7 +199,6 @@
             font-weight: 600;
         }
 
-        /* حاوية التبديل الفوري الموسطة مع التوهج السينمائي */
         .photo-animation-container {
             width: 100%;
             position: relative;
@@ -243,7 +228,6 @@
             z-index: 2;
         }
 
-        /* كروت الميديا الأصلية */
         .media-card {
             width: 100%;
             display: block;
@@ -257,7 +241,6 @@
             display: block;
         }
 
-        /* 📜 تذييل فخم ومنسق للكلام اللي في الآخر */
         .footer-poem {
             font-family: 'Reem Kufi Fun', sans-serif;
             text-align: center;
@@ -270,7 +253,6 @@
             font-weight: 700;
         }
 
-        /* ✨ زخرفة ملكية فخمة ومتحركة للفصل بين الأقسام */
         .royal-divider {
             display: flex;
             align-items: center;
@@ -286,9 +268,7 @@
             background: linear-gradient(to left, transparent, var(--main-gold), transparent);
         }
 
-        .royal-divider::after {
-            background: linear-gradient(to right, transparent, var(--main-gold), transparent);
-        }
+        .royal-divider::after { background: linear-gradient(to right, transparent, var(--main-gold), transparent); }
 
         .royal-divider-center {
             display: flex;
@@ -296,11 +276,6 @@
             gap: 10px;
             padding: 0 15px;
             color: var(--main-gold);
-        }
-
-        .royal-divider-center i {
-            font-size: 1.1rem;
-            text-shadow: 0 0 5px var(--glow-color);
         }
 
         .royal-divider-center .main-icon {
@@ -313,7 +288,6 @@
             100% { transform: scale(1.15); filter: drop-shadow(0 0 8px var(--main-gold)); }
         }
 
-        /* 🎵 زر التحكم في الصوت الملكي العائم */
         .music-control-btn {
             position: fixed;
             bottom: 25px;
@@ -334,7 +308,6 @@
             transition: all 0.3s ease;
         }
 
-        /* حركة الدوران عند تشغيل الموسيقى */
         .music-control-btn.playing {
             animation: rotateMusicBtn 4s linear infinite;
             background: #fff;
@@ -349,55 +322,36 @@
 </head>
 <body>
 
-    <!-- 🎬 شاشة الستارة التفاعلية المحسنة للموبايل بالكامل بدون أزرار ظاهرة -->
+    <!-- 🎬 شاشة الستارة السريعة جداً -->
     <div id="curtain-overlay" onclick="openCurtain()">
         <div class="click-prompt" id="promptText">اضغط هنا لفتح الدعوة الملكية ✨</div>
-        <!-- تم تفعيل الـ playsinline والتجهيز المسبق لعدم حظر التشغيل على سفاري وكروم الموبايل -->
-        <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.mov" playsinline muted autoplay preload="auto" style="display:none; width:100%; height:100%; object-fit:cover;"></video>
+        <!-- تم ربط اسم الفيديو المرفوع بالملي -->
+        <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.MP4" playsinline muted autoplay preload="auto" style="display:none; width:100%; height:100%; object-fit:cover;"></video>
         <canvas id="curtain-canvas"></canvas>
     </div>
 
-    <!-- إضافة عنصر الصوت المخفي ولوب للتكرار التلقائي -->
     <audio id="inviteAudio" src="12.mp3" loop></audio>
 
-    <!-- زر الموسيقى العائم -->
     <button class="music-control-btn" id="musicBtn" onclick="toggleAudio()">
         <i class="fas fa-music"></i>
     </button>
 
     <div class="main-wrapper">
-
-        <!-- هيرو البداية الملكي -->
         <div class="first-hero">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="حنة آية الجزء الأول">
         </div>
 
-        <!-- 👑 العداد التنازلي بالتصميم المطور والتوهج الفاجر -->
         <div class="countdown-section">
             <div class="countdown-title">تَبَــقَّى عَلَى لَـيْلَةِ العُـمْر</div>
             <div class="countdown-subtitle">شاركونا تفاصيل الفرحة والبهجة</div>
-            
             <div class="countdown-grid" id="countdown">
-                <div class="time-box">
-                    <span class="time-number" id="seconds">00</span>
-                    <span class="time-label">ثانية</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="minutes">00</span>
-                    <span class="time-label">دقيقة</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="hours">00</span>
-                    <span class="time-label">ساعة</span>
-                </div>
-                <div class="time-box">
-                    <span class="time-number" id="days">00</span>
-                    <span class="time-label">يوم</span>
-                </div>
+                <div class="time-box"><span class="time-number" id="seconds">00</span><span class="time-label">ثانية</span></div>
+                <div class="time-box"><span class="time-number" id="minutes">00</span><span class="time-label">دقيقة</span></div>
+                <div class="time-box"><span class="time-number" id="hours">00</span><span class="time-label">ساعة</span></div>
+                <div class="time-box"><span class="time-number" id="days">00</span><span class="time-label">يوم</span></div>
             </div>
         </div>
 
-        <!-- ⚜️ فاصل زخرفي ملكي 1 -->
         <div class="royal-divider">
             <div class="royal-divider-center">
                 <i class="layer-group fas fa-leaf"></i>
@@ -406,21 +360,17 @@
             </div>
         </div>
 
-        <!-- 💃 قسم الرقصة والزخارف المظبوطة مع الكلام الجامد -->
         <div class="dance-wrapper">
             <div class="dance-header">
                 <h3>فرحة العروس.. الرقصة الأولى</h3>
                 <p class="poem-line">يا قمر ضوّي عليها.. ليلة الحنّة بين إيديها ✨</p>
             </div>
-
-            <!-- حاوية التبديل الفوري الموسطة تماماً بتأثير الإضاءة الخلفية -->
             <div class="photo-animation-container">
                 <img class="anim-slide active" src="WhatsApp_Image_1447-12-23_at_22.14.14__1___1___1_-removebg-preview.png" alt="حركة 1">
                 <img class="anim-slide" src="WhatsApp_Image_1447-12-23_at_22.14.14__2___1_-removebg-preview (1).png" alt="حركة 2">
             </div>
         </div>
 
-        <!-- ⚜️ فاصل زخرفي ملكي 2 -->
         <div class="royal-divider">
             <div class="royal-divider-center">
                 <i class="layer-group fas fa-leaf"></i>
@@ -429,21 +379,17 @@
             </div>
         </div>
 
-        <!-- كارت الصورة الأخير (الأصلي بتاعك) -->
         <div class="media-card">
             <img src="WhatsApp_Image_1447-12-23_at_21.08.19__2___1_-removebg-preview.png" alt="حنة آية الجزء الأخير">
         </div>
 
-        <!-- 📜 الكلام اللي في الآخر متقفل بشكل شيك جداً بالخط الفاجر -->
         <div class="footer-poem">
             حضوركم يكتمل به فرحنا وسرورنا.. <br>
             ودامت دياركم بالمسرات والأفراح المبهجة دائماً 🎉
         </div>
-
     </div>
 
     <script>
-        // 🎬 منطق تشغيل الستارة لايف وكشف الكروما بدقة فائقة للموبايلات
         const video = document.getElementById('curtainVideo');
         const canvas = document.getElementById('curtain-canvas');
         const ctx = canvas.getContext('2d');
@@ -452,16 +398,14 @@
         function resizeCanvas() {
             canvas.width = window.innerWidth * window.devicePixelRatio;
             canvas.height = window.innerHeight * window.devicePixelRatio;
-            // رسم الفريم الأول ليكون ثابتاً في البداية بدلاً من الشاشة السوداء
             drawFrame();
         }
         window.addEventListener('resize', resizeCanvas);
 
-        // تشغيل معالجة أول فريم فور جاهزية الفيديو لتثبيت الستارة كصورة
-        video.addEventListener('loadeddata', () => {
-            resizeCanvas();
-        });
-        // للاحتياط إذا كان كاش المتصفح محمل الفيديو مسبقاً
+        // التقاط الفريم الأول فوراً بمجرد بدء التحميل لمنع الشاشة السوداء نهائياً
+        video.addEventListener('loadeddata', resizeCanvas);
+        video.addEventListener('seeked', drawFrame);
+
         if (video.readyState >= 2) {
             resizeCanvas();
         }
@@ -471,7 +415,7 @@
             let vHeight = video.videoHeight;
             if(vWidth > 0 && vHeight > 0) {
                 let canvasRatio = canvas.width / canvas.height;
-                let videoRatio = vWidth / vHeight;
+                let videoRatio = vWidth / videoRatio;
                 let sx, sy, sw, sh;
 
                 if (canvasRatio > videoRatio) {
@@ -487,7 +431,7 @@
                 }
                 ctx.drawImage(video, sx, sy, sw, sh, 0, 0, canvas.width, canvas.height);
                 
-                // تطبيق شفافية الجرين سكرين بدقة موسعة (Tolerance محسنة) لمنع البقع السوداء
+                // تصفية ألوان الكروما الذكية لـ MP4 (تمسح الأخضر الفاتح والداكن بالملي)
                 let frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 let length = frame.data.length / 4;
                 for (let i = 0; i < length; i++) {
@@ -495,9 +439,9 @@
                     let g = frame.data[i * 4 + 1];
                     let b = frame.data[i * 4 + 2];
 
-                    // توسيع المدى البرمجي (g > 80) للتخلص من أي بيكسل أخضر مضغوط بالموبايل
-                    if (g > 80 && r < 110 && b < 110) {
-                        frame.data[i * 4 + 3] = 0; // إزالة فورية ليظهر الموقع تحتها مباشرة بالملي
+                    // معادلة حساسة جداً لالتقاط درجات الأخضر الناتجة عن ضغط الموبايل
+                    if (g > 55 && g > r * 1.05 && g > b * 1.05) {
+                        frame.data[i * 4 + 3] = 0; // إخفاء الأخضر تماماً ليظهر الموقع تحته
                     }
                 }
                 ctx.putImageData(frame, 0, 0);
@@ -507,7 +451,7 @@
         function processCurtainFrame() {
             if (video.paused || video.ended) {
                 if (video.ended) {
-                    document.getElementById('curtain-overlay').remove(); // تدمير الستارة نهائياً للتصفح واللمس
+                    document.getElementById('curtain-overlay').remove();
                 }
                 return;
             }
@@ -520,9 +464,8 @@
             isOpening = true;
 
             const promptText = document.getElementById('promptText');
-            if (promptText) promptText.remove(); // اختفاء الجملة فوراً عند اللمس
+            if (promptText) promptText.remove();
 
-            // تفعيل تشغيل الصوت الملكي متزامناً لكسر قيود الهواتف الذكية
             const audio = document.getElementById('inviteAudio');
             if (audio.paused) {
                 audio.play().then(() => {
@@ -531,18 +474,17 @@
                 }).catch(err => console.log("Audio activation deferred."));
             }
 
-            // إجبار المتصفح على تشغيل الفيديو
-            video.muted = true; // الموبايل يشترط كتم الفيديو أولاً ليعمل، الكود يتكفل بالصوت عبر عنصر الـ audio المخصص
+            video.loop = false;
+            video.muted = true;
             video.play().then(() => {
                 processCurtainFrame();
             }).catch(err => {
-                console.log("Video failure setup:", err);
-                // حل بديل فوري للموبايلات القديمة في حال رفض الفيديو تماماً
+                console.log("Fallback triggered.");
                 document.getElementById('curtain-overlay').remove();
             });
         }
 
-        // العداد التنازلي التلقائي الذكي لـ 25 أغسطس 2026
+        // العداد التنازلي التلقائي لـ 25 أغسطس 2026
         const targetDate = new Date("August 25, 2026 20:00:00").getTime();
         const timerInterval = setInterval(function() {
             const now = new Date().getTime();
@@ -564,7 +506,7 @@
             }
         }, 1000);
 
-        // تبديل تلقائي ناعم للرقصة
+        // تبديل تلقائي للرقصة
         const slides = document.querySelectorAll('.anim-slide');
         let currentSlide = 0;
         setInterval(() => {
@@ -575,7 +517,6 @@
             }
         }, 500);
 
-        // التحكم الذكي في تشغيل وإيقاف الصوت
         const audio = document.getElementById('inviteAudio');
         const musicBtn = document.getElementById('musicBtn');
 
