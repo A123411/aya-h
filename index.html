@@ -29,6 +29,44 @@
             scroll-behavior: smooth;
         }
 
+        /* 🎬 تنسيقات شاشة الستارة الذكية برمجياً */
+        #curtain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            cursor: pointer;
+        }
+
+        #curtain-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .curtain-btn {
+            position: absolute;
+            z-index: 100000;
+            font-family: 'Reem Kufi Fun', sans-serif;
+            font-size: 1.8rem;
+            color: #fff;
+            background: rgba(92, 58, 33, 0.85);
+            padding: 15px 35px;
+            border-radius: 50px;
+            border: 2px solid var(--main-gold);
+            box-shadow: 0 0 20px var(--main-gold);
+            pointer-events: none;
+            animation: pulseGlow 1.5s ease-in-out infinite alternate;
+            text-align: center;
+        }
+
         .main-wrapper {
             width: 100%;
             max-width: 460px; 
@@ -293,6 +331,13 @@
 </head>
 <body>
 
+    <!-- 🎬 حاوية الستارة التفاعلية (مخفية لايف بالـ Canvas) -->
+    <div id="curtain-overlay" onclick="openCurtain()">
+        <div class="curtain-btn" id="curtainBtn">انقر لفتح الدعوة الملكية ✨</div>
+        <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.mov" playsinline muted style="display:none;"></video>
+        <canvas id="curtain-canvas"></canvas>
+    </div>
+
     <!-- إضافة عنصر الصوت المخفي ولوب للتكرار التلقائي -->
     <audio id="inviteAudio" src="12.mp3" loop></audio>
 
@@ -379,6 +424,63 @@
     </div>
 
     <script>
+        // 🎬 منطق معالجة الجرين سكرين من فيديو الستارة وعرض الموقع خلفه تلقائياً
+        const video = document.getElementById('curtainVideo');
+        const canvas = document.getElementById('curtain-canvas');
+        const ctx = canvas.getContext('2d');
+        let animationFrameId;
+
+        // تضبيط أبعاد لوحة الرسم لتناسب حجم الفيديو الفعلي عند تحميله
+        video.addEventListener('loadedmetadata', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+        });
+
+        function processCurtainFrame() {
+            if (video.paused || video.ended) {
+                if (video.ended) {
+                    document.getElementById('curtain-overlay').remove(); // إزالة الستارة نهائياً لتصفح الموقع بسلاسة
+                }
+                return;
+            }
+
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            let frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let length = frame.data.length / 4;
+
+            for (let i = 0; i < length; i++) {
+                let r = frame.data[i * 4 + 0];
+                let g = frame.data[i * 4 + 1];
+                let b = frame.data[i * 4 + 2];
+
+                // كشف الكروما الخضراء برمجياً وإزالتها بدقة عالية ليظهر الموقع بالخلفية
+                if (g > 110 && r < 90 && b < 90) {
+                    frame.data[i * 4 + 3] = 0; // تحويل الأخضر لشفاف تماماً
+                }
+            }
+            ctx.putImageData(frame, 0, 0);
+            animationFrameId = requestAnimationFrame(processCurtainFrame);
+        }
+
+        function openCurtain() {
+            const btn = document.getElementById('curtainBtn');
+            if (btn) btn.remove(); // إخفاء زر التنبيه فوراً
+
+            // تشغيل الموسيقى الملكية والدعوة مع حركة الفتح تلقائياً
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(err => console.log("Audio autoplay restriction handled."));
+            }
+
+            video.play();
+            // تفعيل فحص أبعاد الـ Canvas احتياطياً في حال تعذر التجاوب السريع للمتصفح
+            canvas.width = video.videoWidth || 1920;
+            canvas.height = video.videoHeight || 1080;
+            processCurtainFrame();
+        }
+
         // العداد التنازلي التلقائي الذكي لـ 25 أغسطس 2026
         const targetDate = new Date("August 25, 2026 20:00:00").getTime();
         const timerInterval = setInterval(function() {
@@ -427,16 +529,6 @@
                 musicBtn.innerHTML = '<i class="fas fa-music"></i>';
             }
         }
-
-        // محاولة التشغيل التلقائي فور تفاعل الزائر مع أي جزء في الصفحة
-        document.addEventListener('click', function() {
-            if (audio.paused && !musicBtn.classList.contains('playing')) {
-                audio.play().then(() => {
-                    musicBtn.classList.add('playing');
-                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }).catch(err => console.log("Autoplay blocked by browser until direct interaction."));
-            }
-        }, { once: true });
     </script>
 </body>
 </html>
