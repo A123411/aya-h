@@ -76,8 +76,9 @@
             100% { transform: translateY(-15px); opacity: 1; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff; }
         }
 
-        /* 👈 إخفاء مبدئي تام للموقع لمنع ظهوره قبل الستارة ولو لملي ثانية */
+        /* 👈 استخدام display: none لمنع المتصفح من رندرة أي جزء من الموقع تماماً في البداية */
         .main-wrapper {
+            display: none; 
             width: 100%;
             max-width: 460px; 
             margin: 0 auto;
@@ -86,13 +87,13 @@
             position: relative;
             background: linear-gradient(180deg, #fbf2e3 0%, #ebdccb 50%, #fdf3e7 100%);
             box-shadow: 0 0 40px rgba(43, 23, 12, 0.15);
-            
-            opacity: 0; /* 👈 هيبدأ مخفي تماماً */
-            transition: opacity 0.3s ease-in-out; 
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out; 
         }
 
-        /* 👈 هيشتغل فوراً أول ما الستارة تترسم على الـ Canvas */
+        /* 👈 عند الجاهزية نغير الـ display ونعطي تأثير الـ fade-in */
         .main-wrapper.ready {
+            display: block;
             opacity: 1;
         }
 
@@ -456,8 +457,12 @@
                 }
                 ctx.putImageData(frame, 0, 0);
 
-                // 👈 هنا التعديل الأساسي: الموقع مش هياخد كلاس الـ ready ويظهر غير لما الستارة تترسم بالفعل
-                mainSiteWrapper.classList.add('ready');
+                // 👈 تعديل ذكي: الـ wrapper مش هيتفك قفله غير والستارة مرسومة ومستقرة تماماً
+                if (!mainSiteWrapper.classList.contains('ready')) {
+                    mainSiteWrapper.classList.add('ready');
+                    // لضمان استقرار الأبعاد بعد التغيير من none إلى block
+                    setTimeout(resizeCanvas, 10);
+                }
             }
         }
 
@@ -495,7 +500,7 @@
                 processCurtainFrame();
             }).catch(err => {
                 console.log("Fallback triggered.");
-                mainSiteWrapper.classList.add('ready'); // إظهار احتياطي في حالة الفشل
+                mainSiteWrapper.classList.add('ready'); 
                 document.getElementById('curtain-overlay').remove();
             });
         }
