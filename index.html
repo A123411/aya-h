@@ -36,7 +36,7 @@
             width: 100vw;
             height: 100vh;
             height: -webkit-fill-available;
-            background-color: transparent; 
+            background-color: #000; /* 👈 أسود صريح في البداية لحجب رمشة الموقع تماماً */
             z-index: 999999;
             display: flex;
             flex-direction: column;
@@ -45,6 +45,7 @@
             overflow: hidden;
             touch-action: none;
             cursor: pointer;
+            transition: background-color 0.1s ease;
         }
 
         #curtain-canvas {
@@ -76,7 +77,7 @@
             100% { transform: translateY(-15px); opacity: 1; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff; }
         }
 
-        /* 👈 استخدام display: none لمنع المتصفح من رندرة أي جزء من الموقع تماماً في البداية */
+        /* 👈 إخفاء مبدئي تام للموقع */
         .main-wrapper {
             display: none; 
             width: 100%;
@@ -91,7 +92,7 @@
             transition: opacity 0.4s ease-in-out; 
         }
 
-        /* 👈 عند الجاهزية نغير الـ display ونعطي تأثير الـ fade-in */
+        /* 👈 يظهر فوراً أول ما الستارة تكون جاهزة ومرسومة */
         .main-wrapper.ready {
             display: block;
             opacity: 1;
@@ -457,10 +458,11 @@
                 }
                 ctx.putImageData(frame, 0, 0);
 
-                // 👈 تعديل ذكي: الـ wrapper مش هيتفك قفله غير والستارة مرسومة ومستقرة تماماً
+                // 👈 تعديل جذري: أول ما الستارة تترسم فعلياً، بنحول خلفية الـ overlay لـ شفافة وبنظهر الموقع وراها علطول
+                document.getElementById('curtain-overlay').style.backgroundColor = 'transparent';
+                
                 if (!mainSiteWrapper.classList.contains('ready')) {
                     mainSiteWrapper.classList.add('ready');
-                    // لضمان استقرار الأبعاد بعد التغيير من none إلى block
                     setTimeout(resizeCanvas, 10);
                 }
             }
