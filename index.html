@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-light); /* 👈 رجعناها لأصلها عشان الموقع يبان علطول ورا الستارة */
+            background-color: var(--bg-light); 
             color: var(--premium-bronze);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
@@ -36,7 +36,7 @@
             width: 100vw;
             height: 100vh;
             height: -webkit-fill-available;
-            background-color: transparent; /* 👈 خليناها شفافة عشان الكانفاس لما يتفرغ يبين الموقع وراه فوراً */
+            background-color: transparent; 
             z-index: 999999;
             display: flex;
             flex-direction: column;
@@ -76,7 +76,7 @@
             100% { transform: translateY(-15px); opacity: 1; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff; }
         }
 
-        /* 👈 الموقع جاهز وظاهر في الخلفية ومحمي بالـ Z-Index بتاع الستارة */
+        /* 👈 إخفاء مبدئي تام للموقع لمنع ظهوره قبل الستارة ولو لملي ثانية */
         .main-wrapper {
             width: 100%;
             max-width: 460px; 
@@ -86,6 +86,14 @@
             position: relative;
             background: linear-gradient(180deg, #fbf2e3 0%, #ebdccb 50%, #fdf3e7 100%);
             box-shadow: 0 0 40px rgba(43, 23, 12, 0.15);
+            
+            opacity: 0; /* 👈 هيبدأ مخفي تماماً */
+            transition: opacity 0.3s ease-in-out; 
+        }
+
+        /* 👈 هيشتغل فوراً أول ما الستارة تترسم على الـ Canvas */
+        .main-wrapper.ready {
+            opacity: 1;
         }
 
         .first-hero {
@@ -299,7 +307,7 @@
             background: var(--premium-bronze);
             border: 2px solid var(--main-gold);
             color: var(--main-gold);
-            display: none; /* 👈 بيظهر مع بداية حركة الستارة */
+            display: none; 
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
@@ -417,7 +425,6 @@
             }
         }
 
-        // 👈 بمجرد ما الميتاداتا تجهز بنرسم الفريم الأول فوراً عشان الستارة تبان من أول ملي ثانية
         video.addEventListener('loadedmetadata', checkAndDrawInitial);
         video.addEventListener('loadeddata', checkAndDrawInitial);
         video.addEventListener('canplay', checkAndDrawInitial);
@@ -443,12 +450,14 @@
                     let g = frame.data[i * 4 + 1];
                     let b = frame.data[i * 4 + 2];
 
-                    // تفريغ الكروما الخضراء بدقة عالية لتظهر أول صورة بالخلفية
                     if (g > 55 && g > r * 1.05 && g > b * 1.05) {
                         frame.data[i * 4 + 3] = 0; 
                     }
                 }
                 ctx.putImageData(frame, 0, 0);
+
+                // 👈 هنا التعديل الأساسي: الموقع مش هياخد كلاس الـ ready ويظهر غير لما الستارة تترسم بالفعل
+                mainSiteWrapper.classList.add('ready');
             }
         }
 
@@ -470,7 +479,6 @@
             const promptText = document.getElementById('promptText');
             if (promptText) promptText.remove();
 
-            // تشغيل الأغنية فوراً مع الضغطة
             const audio = document.getElementById('inviteAudio');
             if (audio.paused) {
                 audio.play().then(() => {
@@ -479,7 +487,6 @@
                 }).catch(err => console.log("Audio deferred."));
             }
 
-            // إظهار زر التحكم بالموسيقى
             musicBtn.style.display = 'flex';
 
             video.loop = false;
@@ -488,6 +495,7 @@
                 processCurtainFrame();
             }).catch(err => {
                 console.log("Fallback triggered.");
+                mainSiteWrapper.classList.add('ready'); // إظهار احتياطي في حالة الفشل
                 document.getElementById('curtain-overlay').remove();
             });
         }
