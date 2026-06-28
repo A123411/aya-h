@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -21,7 +21,7 @@
         body, html {
             margin: 0;
             padding: 0;
-            background-color: #000; /* 👈 غيرناها لأسود مؤقتاً عشان لو الفيديو اتأخر نص ثانية ما يبانش بياض */
+            background-color: var(--bg-light); /* 👈 رجعناها لأصلها عشان الموقع يبان علطول ورا الستارة */
             color: var(--premium-bronze);
             font-family: 'Cairo', sans-serif;
             overflow-x: hidden;
@@ -36,7 +36,7 @@
             width: 100vw;
             height: 100vh;
             height: -webkit-fill-available;
-            background-color: #000; /* 👈 إضافة خلفية سوداء صريحة لحجب أي حاجة وراها */
+            background-color: transparent; /* 👈 خليناها شفافة عشان الكانفاس لما يتفرغ يبين الموقع وراه فوراً */
             z-index: 999999;
             display: flex;
             flex-direction: column;
@@ -76,7 +76,7 @@
             100% { transform: translateY(-15px); opacity: 1; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.9), 0 0 25px var(--main-gold), 0 0 10px #fff; }
         }
 
-        /* 👈 إخفاء محتوى الموقع بالكامل في البداية لتسريع الستارة */
+        /* 👈 الموقع جاهز وظاهر في الخلفية ومحمي بالـ Z-Index بتاع الستارة */
         .main-wrapper {
             width: 100%;
             max-width: 460px; 
@@ -86,16 +86,6 @@
             position: relative;
             background: linear-gradient(180deg, #fbf2e3 0%, #ebdccb 50%, #fdf3e7 100%);
             box-shadow: 0 0 40px rgba(43, 23, 12, 0.15);
-            
-            opacity: 0; /* 👈 مخفي */
-            visibility: hidden; /* 👈 غير قابل للتفاعل */
-            transition: opacity 0.6s ease-in-out; /* 👈 ظهور ناعم بعد الستارة */
-        }
-
-        /* الكلاس اللي هيشغل ظهور الموقع */
-        .main-wrapper.site-visible {
-            opacity: 1;
-            visibility: visible;
         }
 
         .first-hero {
@@ -309,7 +299,7 @@
             background: var(--premium-bronze);
             border: 2px solid var(--main-gold);
             color: var(--main-gold);
-            display: none; /* 👈 غيرناها لـ None عشان ما يظهرش فوق الستارة في الأول */
+            display: none; /* 👈 بيظهر مع بداية حركة الستارة */
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
@@ -335,7 +325,6 @@
 
     <div id="curtain-overlay" onclick="openCurtain()">
         <div class="click-prompt" id="promptText">اضغط هنا لفتح الدعوة الملكية ✨</div>
-        <!-- 👈 تم إضافة fetchpriority="high" لإجبار المتصفح على تحميل الفيديو فوراً بأعلى أولوية -->
         <video id="curtainVideo" src="ScreenRecording_06-24-2026 13-20-09_1.MP4" playsinline muted autoplay fetchpriority="high" preload="auto" style="display:none; width:100%; height:100%; object-fit:cover;"></video>
         <canvas id="curtain-canvas"></canvas>
     </div>
@@ -346,7 +335,6 @@
         <i class="fas fa-music"></i>
     </button>
 
-    <!-- 👈 هنا الـ wrapper الأساسي واخد كلاس الإخفاء المبدئي -->
     <div id="mainSiteWrapper" class="main-wrapper">
         <div class="first-hero">
             <img src="WhatsApp Image 1447-12-23 at 21.08.19 (1) (1).jpeg" alt="حنة آية الجزء الأول">
@@ -429,14 +417,14 @@
             }
         }
 
+        // 👈 بمجرد ما الميتاداتا تجهز بنرسم الفريم الأول فوراً عشان الستارة تبان من أول ملي ثانية
         video.addEventListener('loadedmetadata', checkAndDrawInitial);
         video.addEventListener('loadeddata', checkAndDrawInitial);
         video.addEventListener('canplay', checkAndDrawInitial);
         video.addEventListener('seeked', drawFrame);
 
-        setTimeout(checkAndDrawInitial, 100);
-        setTimeout(checkAndDrawInitial, 500);
-        setTimeout(checkAndDrawInitial, 1000);
+        setTimeout(checkAndDrawInitial, 50);
+        setTimeout(checkAndDrawInitial, 200);
 
         if (video.readyState >= 2) {
             resizeCanvas();
@@ -455,7 +443,7 @@
                     let g = frame.data[i * 4 + 1];
                     let b = frame.data[i * 4 + 2];
 
-                    // Chroma key لتفريغ اللون الأخضر
+                    // تفريغ الكروما الخضراء بدقة عالية لتظهر أول صورة بالخلفية
                     if (g > 55 && g > r * 1.05 && g > b * 1.05) {
                         frame.data[i * 4 + 3] = 0; 
                     }
@@ -463,13 +451,6 @@
                 ctx.putImageData(frame, 0, 0);
             }
         }
-
-        // 👈 تعديل ذكي هنا: أول ما الفيديو يبدأ يشتغل فعلياً، بنجهز الموقع في الخلفية
-        video.addEventListener('play', () => {
-            document.body.style.backgroundColor = 'var(--bg-light)'; // رجعنا خلفية الموقع الأصلية
-            mainSiteWrapper.classList.add('site-visible'); // أظهرنا الموقع بسلاسة تحت الستارة الشفافة
-            musicBtn.style.display = 'flex'; // إظهار زرار الموسيقى الآن
-        });
 
         function processCurtainFrame() {
             if (video.paused || video.ended) {
@@ -489,6 +470,7 @@
             const promptText = document.getElementById('promptText');
             if (promptText) promptText.remove();
 
+            // تشغيل الأغنية فوراً مع الضغطة
             const audio = document.getElementById('inviteAudio');
             if (audio.paused) {
                 audio.play().then(() => {
@@ -497,14 +479,15 @@
                 }).catch(err => console.log("Audio deferred."));
             }
 
+            // إظهار زر التحكم بالموسيقى
+            musicBtn.style.display = 'flex';
+
             video.loop = false;
             video.muted = true;
             video.play().then(() => {
                 processCurtainFrame();
             }).catch(err => {
                 console.log("Fallback triggered.");
-                mainSiteWrapper.classList.add('site-visible');
-                musicBtn.style.display = 'flex';
                 document.getElementById('curtain-overlay').remove();
             });
         }
